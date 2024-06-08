@@ -1,6 +1,5 @@
 package com.example;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,15 +9,14 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+import com.example.security.EcommerceUserDetailsService;
 
 @Configuration
 public class PasswordStorageWebSecurityConfigurer {
@@ -35,12 +33,7 @@ public class PasswordStorageWebSecurityConfigurer {
 
     @Bean
     public UserDetailsService getUserDefaultDetailsService() {
-        UserDetails user = User
-                .withUsername("Cristiano")
-                .password("{noop}monoronaldo")
-                .authorities(Collections.emptyList())
-                .build();
-        return new InMemoryUserDetailsManager(user);
+        return new EcommerceUserDetailsService();
     }
 
     @Bean
