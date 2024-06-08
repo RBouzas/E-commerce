@@ -33,6 +33,7 @@ public class PasswordStorageWebSecurityConfigurer {
 
     @Bean
     public UserDetailsService getUserDefaultDetailsService() {
+        System.out.println("LOADED USER SERVICE");
         return new EcommerceUserDetailsService();
     }
 

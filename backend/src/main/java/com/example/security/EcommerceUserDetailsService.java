@@ -1,9 +1,6 @@
 package com.example.security;
 
-import java.util.Collections;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,11 +16,8 @@ public class EcommerceUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Usuario usuario = serUsu.buscarUsuario(username);
-        UserDetails user = User
-                .withUsername(usuario.getNombre())
-                .password(usuario.getContrasenha())
-                .authorities(Collections.emptyList())
-                .build();
+        EcommerceUserDetails user = new EcommerceUserDetails(usuario);
+        System.out.println("USER: " + user.getUsuario());
         return user;
     }
 
