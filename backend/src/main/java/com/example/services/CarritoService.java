@@ -15,7 +15,7 @@ public class CarritoService {
     private CarritoRepository repoCarrito;
 
     public List<Carrito> listarCarrito(Integer id) {
-        return repoCarrito.findByIdUsuario(id);
+        return repoCarrito.findByUsuario_idUsuario(id);
     }
 
     public Carrito addCarrito(Carrito carrito) {

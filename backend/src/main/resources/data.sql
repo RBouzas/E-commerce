@@ -9,6 +9,6 @@ INSERT INTO usuarios (nombre, contrasenha) VALUES
 ('Cristiano', '{noop}monoronaldo'),
 ('Joaquin', '{noop}enmividahulio');
 
-INSERT INTO carrito (producto, usuario) VALUES
+INSERT INTO carrito (idProducto, idUsuario) VALUES
 (2, 1),
 (5, 1);

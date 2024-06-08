@@ -8,6 +8,6 @@ import com.example.model.Carrito;
 
 public interface CarritoRepository extends JpaRepository<Carrito, Integer> {
 
-    List<Carrito> findByIdUsuario(Integer id);
+    List<Carrito> findByUsuario_idUsuario(Integer id);
 
 }

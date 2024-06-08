@@ -22,7 +22,7 @@ public class CarritoRestController {
 
     @GetMapping("/")
     public List<Carrito> listar() {
-        Integer idUsuario = 0;
+        Integer idUsuario = 1;
         return serCarrito.listarCarrito(idUsuario);
     }
 
