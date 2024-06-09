@@ -18,7 +18,7 @@ public class ProductoRestController {
     @Autowired
     private ProductoService serProd;
 
-    @GetMapping("/")
+    @GetMapping
     public List<Producto> listar() {
         return serProd.listarProductos();
     }

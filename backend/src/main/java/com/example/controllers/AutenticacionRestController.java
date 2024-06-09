@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.model.Usuario;
-import com.example.security.ForbiddenException;
 import com.example.security.UnauthorizedException;
 import com.example.services.UsuarioService;
 

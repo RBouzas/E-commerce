@@ -17,7 +17,6 @@ public class EcommerceUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Usuario usuario = serUsu.buscarUsuario(username);
         EcommerceUserDetails user = new EcommerceUserDetails(usuario);
-        System.out.println("USER: " + user.getUsuario());
         return user;
     }
 

@@ -23,13 +23,13 @@ public class CarritoRestController {
     @Autowired
     private CarritoService serCarrito;
 
-    @GetMapping("/")
+    @GetMapping
     public List<Carrito> listar(Authentication authentication) {
         EcommerceUserDetails usuario = (EcommerceUserDetails) authentication.getPrincipal();
         return serCarrito.listarCarrito(usuario.getUsuario().getIdUsuario());
     }
 
-    @PostMapping("/")
+    @PostMapping
     public Carrito guardar(@RequestBody Carrito carrito, Authentication authentication) {
         EcommerceUserDetails usuario = (EcommerceUserDetails) authentication.getPrincipal();
         return serCarrito.addCarrito(carrito, usuario.getUsuario());
@@ -40,5 +40,4 @@ public class CarritoRestController {
         EcommerceUserDetails usuario = (EcommerceUserDetails) authentication.getPrincipal();
         serCarrito.borrarCarrito(id, usuario.getUsuario());
     }
-
 }

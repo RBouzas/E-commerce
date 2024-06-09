@@ -34,7 +34,6 @@ public class PasswordStorageWebSecurityConfigurer {
 
     @Bean
     public UserDetailsService getUserDefaultDetailsService() {
-        System.out.println("LOADED USER SERVICE");
         return new EcommerceUserDetailsService();
     }
 
@@ -56,7 +55,8 @@ public class PasswordStorageWebSecurityConfigurer {
         http.authorizeHttpRequests(
                 authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry
                         .requestMatchers("/api/productos").permitAll()
-                        .requestMatchers("/api/**").authenticated())
+                        .requestMatchers("/api/**").authenticated()
+                        .requestMatchers("/**").permitAll())
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
