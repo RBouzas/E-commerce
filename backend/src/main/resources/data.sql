@@ -19,11 +19,3 @@ INSERT INTO productos (nombre, descripcion, precio, imagen) VALUES
 ('Laptop Gaming MSI GF65 Thin', 'Laptop gaming MSI GF65 Thin con pantalla de 15.6 pulgadas, procesador Intel Core i7, 16GB de RAM y tarjeta gráfica NVIDIA GeForce GTX 1660 Ti.', 1099.99, '/images/msi_gf65_thin.jpg'),
 ('Kit de Iluminación Elgato Key Light', 'Kit de iluminación Elgato Key Light con brillo ajustable, temperatura de color personalizable y control inalámbrico.', 199.99, '/images/elgato_key_light.jpg'),
 ('Disco Duro Interno Samsung 970 EVO', 'Disco duro interno SSD Samsung 970 EVO de 1TB con tecnología NVMe, altas velocidades de lectura y escritura.', 169.99, '/images/samsung_970_evo.jpg');
-
-INSERT INTO usuarios (nombre, contrasenha) VALUES
-('Cristiano', '{noop}monoronaldo'),
-('Joaquin', '{noop}enmividahulio');
-
-INSERT INTO carrito (idProducto, idUsuario) VALUES
-(2, 1),
-(5, 1);

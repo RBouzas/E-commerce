@@ -20,7 +20,7 @@ const Carrusel = () => {
       <Container>
         <Row>
           {listaProductos.map(({ idProducto, nombre, imagen }) => (
-            <Col md={6} xl={2}>
+            <Col key={idProducto} md={6} xl={2}>
               <a href={`/productos/${idProducto}`}>
                 <Image src={imagen} alt={nombre} height="150px" />
               </a>

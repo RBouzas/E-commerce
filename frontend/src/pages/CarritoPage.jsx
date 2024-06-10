@@ -1,7 +1,12 @@
+import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import { useMemo } from "react";
-import Page from "../components/Page";
-import useCarrito from "../client/useCarrito";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Stack from "react-bootstrap/Stack";
 import useBorrarCarrito from "../client/useBorrarCarrito";
+import useCarrito from "../client/useCarrito";
+import Page from "../components/Page";
 
 const ControlBorrarCarrito = ({ idCarrito }) => {
   const { done, error, loading, request } = useBorrarCarrito(idCarrito);
@@ -9,6 +14,7 @@ const ControlBorrarCarrito = ({ idCarrito }) => {
   if (!done)
     return (
       <button disabled={loading} onClick={() => request()}>
+        <RemoveShoppingCartIcon />
         Eliminar
       </button>
     );
@@ -23,16 +29,16 @@ const ElementoCarrito = ({ elemento }) => {
   const { idCarrito, producto } = elemento;
   const { nombre, precio, imagen } = producto;
   return (
-    <li>
-      <div>
+    <Row>
+      <Col>
         <img src={imagen} alt="Imagen del producto" />
-      </div>
-      <div>{nombre}</div>
-      <div>{precio}</div>
-      <div>
+      </Col>
+      <Col>{nombre}</Col>
+      <Col>{precio}</Col>
+      <Col>
         <ControlBorrarCarrito idCarrito={idCarrito} />
-      </div>
-    </li>
+      </Col>
+    </Row>
   );
 };
 
@@ -51,12 +57,14 @@ const CarritoPage = () => {
 
   return (
     <Page loading={loadingCarrito}>
-      <h3>Tu carrito</h3>
-      <ul>
-        {carrito &&
-          carrito.map((elemento) => <ElementoCarrito elemento={elemento} />)}
-      </ul>
-      <PrecioTotal carrito={carrito} />
+      <Stack gap={2} style={{ maxWidth: "50%" }} className="m-auto">
+        <h3>Tu carrito</h3>
+        <Container>
+          {carrito &&
+            carrito.map((elemento) => <ElementoCarrito elemento={elemento} />)}
+        </Container>
+        <PrecioTotal carrito={carrito} />
+      </Stack>
     </Page>
   );
 };

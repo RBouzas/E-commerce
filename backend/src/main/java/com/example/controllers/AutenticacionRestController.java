@@ -28,11 +28,10 @@ public class AutenticacionRestController {
 
     @GetMapping("/me")
     public Usuario me(Authentication authentication) {
-        Object principal = authentication.getPrincipal();
-        if (principal == null)
+        if (authentication == null)
             return null;
 
-        EcommerceUserDetails usuario = (EcommerceUserDetails) principal;
+        EcommerceUserDetails usuario = (EcommerceUserDetails) authentication.getPrincipal();
         return usuario.getUsuario();
     }
 

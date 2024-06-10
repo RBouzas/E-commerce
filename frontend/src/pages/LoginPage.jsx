@@ -6,11 +6,20 @@ const LoginPage = () => {
   const [searchParams] = useSearchParams();
   const loginError =
     searchParams.has("error") && searchParams.get("error") !== "false";
+  const registrado =
+    searchParams.has("registrado") &&
+    searchParams.get("registrado") !== "false";
 
   return (
     <Page>
       <Stack gap={2} style={{ maxWidth: "50%" }} className="m-auto">
         <h3>Inicia sesión</h3>
+        {registrado && (
+          <div>
+            ¡Enhorabuena! Se ha registrado correctamente. A continuación inicie
+            sesión con su usuario y contraseña.
+          </div>
+        )}
         <form action="http://localhost:8080/api/performLogin" method="POST">
           <Stack gap={2}>
             <input

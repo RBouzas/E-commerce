@@ -12,16 +12,17 @@ import Page from "../components/Page";
 
 const ListaItem = ({ idProducto, nombre, imagen }) => {
   return (
-    <a className="text-decoration-none" href={`/productos/${idProducto}`}>
-      <Card className="h-100">
-        <Card.Img variant="top" src={imagen} alt="Imagen del producto" />
-        <div className="flex-grow-1" />
-        <Card.Body>
-          <Card.Title>{nombre}</Card.Title>
+    <Card className="h-100">
+      <Card.Img variant="top" src={imagen} alt="Imagen del producto" />
+      <div className="flex-grow-1" />
+      <Card.Body>
+        <Card.Title>{nombre}</Card.Title>
+        <Card.Link href={`/productos/${idProducto}`}>Detalles...</Card.Link>
+        <div>
           <ControlGuardarCarrito idProducto={idProducto} />
-        </Card.Body>
-      </Card>
-    </a>
+        </div>
+      </Card.Body>
+    </Card>
   );
 };
 
@@ -85,9 +86,8 @@ const ListaProductosPage = () => {
           <Row>
             {listaProductos &&
               listaProductos.map((producto) => (
-                <Col md={6} xl={2}>
+                <Col key={producto.idProducto} md={6} xl={2}>
                   <ListaItem
-                    key={producto.idProducto}
                     idProducto={producto.idProducto}
                     nombre={producto.nombre}
                     imagen={producto.imagen}

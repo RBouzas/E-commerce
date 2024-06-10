@@ -3,12 +3,19 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Row from "react-bootstrap/Row";
+import Autenticado from "./Autenticado";
 
 const Loading = () => {
   return "Loading....";
 };
 
 const Navigation = () => {
+  const fallback = (
+    <>
+      <Nav.Link href="/login">Login</Nav.Link>
+      <Nav.Link href="/registro">Registro</Nav.Link>
+    </>
+  );
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
@@ -18,9 +25,9 @@ const Navigation = () => {
           <Nav className="me-auto">
             <Nav.Link href="/productos">Productos</Nav.Link>
             <Nav.Link href="/carrito">Carrito</Nav.Link>
-            <Nav.Link href="/login">Login</Nav.Link>
-            <Nav.Link href="/logout">Logout</Nav.Link>
-            <Nav.Link href="/registro">Registro</Nav.Link>
+            <Autenticado fallback={fallback}>
+              <Nav.Link href="/logout">Logout</Nav.Link>
+            </Autenticado>
           </Nav>
         </Navbar.Collapse>
       </Container>
