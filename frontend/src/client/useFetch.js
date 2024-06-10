@@ -1,44 +1,66 @@
 import { useState, useEffect, useCallback } from "react";
 
-export const useFetch = (url) => {
+const BASENAME = "http://localhost:8080";
+
+export const useFetch = ({ url, options }, immediate = true) => {
   const [dataState, setDataState] = useState({
-    data: [],
-    loading: true,
+    data: null,
+    loading: immediate,
     error: null,
     started: false,
     done: false,
+    request: null,
   });
 
-  const handleFetch = useCallback(async () => {
-    try {
-      setDataState((prev) => ({ ...prev, started: true }));
-      const response = await fetch(url);
+  const handleFetch = useCallback(
+    async (callOptions = {}) => {
+      try {
+        setDataState((prev) => ({
+          ...prev,
+          started: true,
+          loading: true,
+          done: false,
+        }));
+        const response = await fetch(BASENAME + url, {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          ...options,
+          ...callOptions,
+        });
 
-      if (!response.ok) throw new Error(response.statusText);
+        if (!response.ok) throw new Error(response.statusText);
 
-      const dataApi = await response.json();
+        const dataApi = response.status === 204 ? null : await response.json();
 
-      setDataState((prev) => {
-        return {
+        setDataState((prev) => {
+          return {
+            ...prev,
+            loading: false,
+            data: dataApi,
+            done: true,
+            error: null,
+          };
+        });
+      } catch (error) {
+        setDataState((prev) => ({
           ...prev,
           loading: false,
-          data: dataApi,
+          error: error,
           done: true,
-        };
-      });
-    } catch (error) {
-      setDataState((prev) => ({
-        ...prev,
-        loading: false,
-        error: error.message,
-        done: true,
-      }));
-    }
-  }, [url, setDataState]);
+          data: [],
+        }));
+      }
+    },
+    [url, options, setDataState]
+  );
 
   useEffect(() => {
-    if (!dataState.started) handleFetch();
-  }, [dataState.started, handleFetch]);
+    setDataState((prev) => ({ ...prev, request: handleFetch }));
+
+    if (immediate && !dataState.started) handleFetch();
+  }, [immediate, dataState.started, handleFetch]);
 
   return dataState;
 };

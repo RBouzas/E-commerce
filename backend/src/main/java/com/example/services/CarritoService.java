@@ -21,12 +21,8 @@ public class CarritoService {
         return repoCarrito.findByUsuario_idUsuario(id);
     }
 
-    public Carrito addCarrito(Carrito carrito, Usuario usuario) {
-        if (usuario.getIdUsuario() == carrito.getUsuario().getIdUsuario()) {
-            return repoCarrito.save(carrito);
-        } else {
-            throw new ForbiddenException();
-        }
+    public Carrito addCarrito(Carrito carrito) {
+        return repoCarrito.save(carrito);
     }
 
     public void borrarCarrito(Integer id, Usuario usuario) {

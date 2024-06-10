@@ -1,7 +1,7 @@
 import useFetch from "./useFetch";
 
 const useListaProductos = () => {
-  return useFetch("/api/productos");
+  return useFetch({ url: "/api/productos" });
 };
 
 export default useListaProductos;

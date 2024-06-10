@@ -6,6 +6,9 @@ import DetalleProductoPage from "./pages/DetalleProductoPage";
 import HomePage from "./pages/HomePage";
 import reportWebVitals from "./reportWebVitals";
 import ListaProductosPage from "./pages/ListaProductosPage";
+import CarritoPage from "./pages/CarritoPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 
 const router = createBrowserRouter([
   {
@@ -17,8 +20,20 @@ const router = createBrowserRouter([
     element: <ListaProductosPage />,
   },
   {
-    path: "/productos/:id",
+    path: "/productos/:idProducto",
     element: <DetalleProductoPage />,
+  },
+  {
+    path: "/carrito",
+    element: <CarritoPage />,
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/registro",
+    element: <RegisterPage />,
   },
 ]);
 
