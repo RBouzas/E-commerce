@@ -1,20 +1,13 @@
 import { useEffect } from "react";
+import Col from "react-bootstrap/Col";
+import Image from "react-bootstrap/Image";
+import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/esm/Container";
 import useListaProductos from "../client/useListaProductos";
 import Page from "../components/Page";
-import Container from "react-bootstrap/esm/Container";
-
-const ItemCarrusel = ({ idProducto, imagen }) => (
-  <div>
-    <div>
-      <a href={`/productos/${idProducto}`}>
-        <img src={imagen} alt="Imagen del producto" height="100px" />
-      </a>
-    </div>
-  </div>
-);
 
 const Carrusel = () => {
-  const { done, data: listaProductos, request } = useListaProductos();
+  const { done, data: listaProductos, request } = useListaProductos(0, 6);
 
   useEffect(() => {
     request && request();
@@ -24,13 +17,17 @@ const Carrusel = () => {
 
   return (
     <section>
-      {listaProductos.map(({ idProducto, nombre, imagen }) => (
-        <ItemCarrusel
-          key={idProducto}
-          imagen={imagen}
-          idProducto={idProducto}
-        />
-      ))}
+      <Container>
+        <Row>
+          {listaProductos.map(({ idProducto, nombre, imagen }) => (
+            <Col md={6} xl={2}>
+              <a href={`/productos/${idProducto}`}>
+                <Image src={imagen} alt={nombre} height="150px" />
+              </a>
+            </Col>
+          ))}
+        </Row>
+      </Container>
     </section>
   );
 };

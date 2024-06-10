@@ -1,3 +1,4 @@
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import useGuardarCarrito from "../client/useGuardarCarrito";
 
 const ControlGuardarCarrito = ({ idProducto }) => {
@@ -9,6 +10,7 @@ const ControlGuardarCarrito = ({ idProducto }) => {
         disabled={loading}
         onClick={() => request({ body: JSON.stringify({ idProducto }) })}
       >
+        <AddShoppingCartIcon />
         Añadir al carrito
       </button>
     );

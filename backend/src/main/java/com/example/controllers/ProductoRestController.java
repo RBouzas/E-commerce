@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.controllers.dtos.ListarProductosParamsDTO;
 import com.example.model.Producto;
 import com.example.services.ProductoService;
 
