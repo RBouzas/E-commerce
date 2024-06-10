@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import useListaProductos from "../client/useListaProductos";
 import ControlGuardarCarrito from "../components/ControlGuardarCarrito";
 import Page from "../components/Page";
@@ -25,9 +26,38 @@ const ListaItem = ({ idProducto, nombre, imagen }) => {
   );
 };
 
+const ELEMENTOS_POR_PAGINA = 5;
+
+const Paginacion = ({ pagina, onCambioPagina }) => {
+  return (
+    <div>
+      <button
+        disabled={pagina === 1}
+        onClick={() => onCambioPagina(pagina - 1)}
+      >
+        {"<<"}
+      </button>
+      {pagina}
+      <button onClick={() => onCambioPagina(pagina + 1)}>{">>"}</button>
+    </div>
+  );
+};
+
 const ListaProductosPage = () => {
-  const { data: listaProductos, loading: loadingListaProductos } =
-    useListaProductos();
+  const [pagina, setPagina] = useState(1);
+  const {
+    data: listaProductos,
+    loading: loadingListaProductos,
+    request,
+  } = useListaProductos(
+    ELEMENTOS_POR_PAGINA * (pagina - 1),
+    ELEMENTOS_POR_PAGINA
+  );
+
+  useEffect(() => {
+    request && request();
+    return () => {};
+  }, [request, pagina]);
 
   return (
     <Page loading={loadingListaProductos}>
@@ -43,6 +73,10 @@ const ListaProductosPage = () => {
             />
           ))}
       </div>
+      <Paginacion
+        pagina={pagina}
+        onCambioPagina={(numero) => setPagina(numero)}
+      />
     </Page>
   );
 };
