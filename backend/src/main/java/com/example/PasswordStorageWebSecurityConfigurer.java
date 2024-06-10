@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,6 +17,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -66,17 +68,21 @@ public class PasswordStorageWebSecurityConfigurer {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(
                 authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry
+                        .requestMatchers("/api/performLogin").permitAll()
+                        .requestMatchers("/api/autenticacion/*").permitAll()
                         .requestMatchers("/api/productos").permitAll()
+                        .requestMatchers("/carrito").authenticated()
+                        .requestMatchers("/productos/*").authenticated()
                         .requestMatchers("/api/**").authenticated()
                         .requestMatchers("/**").permitAll())
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
-                .formLogin(form -> form.loginPage("/login")
+                .formLogin(form -> form.loginPage("http://localhost:8080/login")
                         .loginProcessingUrl("/api/performLogin")
                         .defaultSuccessUrl("/")
                         .failureUrl("/login?error=true"))
-                .logout((logout) -> logout.logoutUrl("/api/autenticacion/logout")
-                        .deleteCookies("JSESSIONID"))
+                .logout((logout) -> logout.logoutUrl("/api/autenticacion/logout").deleteCookies("JSESSIONID")
+                        .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.NO_CONTENT)))
                 .csrf(csrf -> csrf.disable())
                 .build();
     }

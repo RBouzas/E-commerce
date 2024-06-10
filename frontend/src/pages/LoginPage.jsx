@@ -8,6 +8,7 @@ const LoginPage = () => {
 
   return (
     <Page>
+      <h3>Inicia sesión</h3>
       <form action="http://localhost:8080/api/performLogin" method="POST">
         <input
           type="text"

@@ -9,6 +9,7 @@ import ListaProductosPage from "./pages/ListaProductosPage";
 import CarritoPage from "./pages/CarritoPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import LogoutPage from "./pages/LogoutPage";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage />,
+  },
+  {
+    path: "/logout",
+    element: <LogoutPage />,
   },
   {
     path: "/registro",
