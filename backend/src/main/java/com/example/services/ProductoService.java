@@ -14,8 +14,12 @@ public class ProductoService {
     @Autowired
     private ProductoRepository repoProd;
 
-    public List<Producto> listarProductos() {
-        return repoProd.findAll();
+    public List<Producto> listarProductos(String search, Integer offset, Integer limit) {
+        offset = offset == null ? 0 : offset;
+        limit = limit == null ? 5 : limit;
+        limit = limit < 1 ? 1 : limit;
+        limit = limit > 20 ? 20 : limit;
+        return repoProd.search(search, offset, limit);
     }
 
     public Producto mostrarDetalle(Integer id) {
