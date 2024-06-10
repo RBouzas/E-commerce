@@ -6,8 +6,8 @@ const useListaProductos = (offset, limit, search) => {
 
   const searchEnabled = search && search.length > 3;
   if (searchEnabled) params.set("search", search);
-  params.set("offset", offset);
-  params.set("limit", limit);
+  if (offset) params.set("offset", offset);
+  if (limit) params.set("limit", limit);
 
   const fetchHook = useFetch({ url: `/api/productos?${params}` }, false);
   const { request } = fetchHook;
