@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import DetalleProductoPage from "./pages/DetalleProductoPage";
 import HomePage from "./pages/HomePage";
 import reportWebVitals from "./reportWebVitals";
