@@ -22,7 +22,8 @@ const DetalleProducto = ({ idProducto, nombre, descripcion, imagen }) => {
 
 const DetalleProductoPage = () => {
   const { idProducto } = useParams();
-  const { data: producto, loading: loadingDetalleProducto } = useVerDetalle(1);
+  const { data: producto, loading: loadingDetalleProducto } =
+    useVerDetalle(idProducto);
 
   return (
     <Page loading={loadingDetalleProducto}>
