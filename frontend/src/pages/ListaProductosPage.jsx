@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useListaProductos from "../client/useListaProductos";
 import ControlGuardarCarrito from "../components/ControlGuardarCarrito";
 import Page from "../components/Page";
@@ -28,40 +28,46 @@ const ListaItem = ({ idProducto, nombre, imagen }) => {
 
 const ELEMENTOS_POR_PAGINA = 5;
 
-const Paginacion = ({ pagina, onCambioPagina }) => {
-  return (
-    <div>
-      <button
-        disabled={pagina === 1}
-        onClick={() => onCambioPagina(pagina - 1)}
-      >
-        {"<<"}
-      </button>
-      {pagina}
-      <button onClick={() => onCambioPagina(pagina + 1)}>{">>"}</button>
-    </div>
-  );
-};
+const ControlBusqueda = ({ busqueda, onCambioTextoBusqueda }) => (
+  <input
+    type="text"
+    placeholder="¿Qué busca?"
+    value={busqueda}
+    autoFocus
+    onChange={(event) => onCambioTextoBusqueda(event.target.value)}
+  />
+);
+
+const ControlPaginacion = ({ pagina, onCambioPagina }) => (
+  <div>
+    <button disabled={pagina === 1} onClick={() => onCambioPagina(pagina - 1)}>
+      {"<<"}
+    </button>
+    {pagina}
+    <button onClick={() => onCambioPagina(pagina + 1)}>{">>"}</button>
+  </div>
+);
 
 const ListaProductosPage = () => {
   const [pagina, setPagina] = useState(1);
-  const {
-    data: listaProductos,
-    loading: loadingListaProductos,
-    request,
-  } = useListaProductos(
-    ELEMENTOS_POR_PAGINA * (pagina - 1),
-    ELEMENTOS_POR_PAGINA
-  );
-
-  useEffect(() => {
-    request && request();
-    return () => {};
-  }, [request, pagina]);
+  const [textoBusqueda, setTextoBusqueda] = useState("");
+  const { data: listaProductos, loading: loadingListaProductos } =
+    useListaProductos(
+      ELEMENTOS_POR_PAGINA * (pagina - 1),
+      ELEMENTOS_POR_PAGINA,
+      textoBusqueda
+    );
 
   return (
     <Page loading={loadingListaProductos}>
       <h1>Lista productos</h1>
+      <ControlBusqueda
+        busqueda={textoBusqueda}
+        onCambioTextoBusqueda={(texto) => {
+          setTextoBusqueda(texto);
+          setPagina(1);
+        }}
+      />
       <div>
         {listaProductos &&
           listaProductos.map((producto) => (
@@ -73,10 +79,7 @@ const ListaProductosPage = () => {
             />
           ))}
       </div>
-      <Paginacion
-        pagina={pagina}
-        onCambioPagina={(numero) => setPagina(numero)}
-      />
+      <ControlPaginacion pagina={pagina} onCambioPagina={setPagina} />
     </Page>
   );
 };

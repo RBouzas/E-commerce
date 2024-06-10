@@ -11,9 +11,9 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
     @Query(value = """
             SELECT *
             FROM productos
-            WHERE (?1 IS NULL OR nombre LIKE '%?1%' OR descripcion LIKE '%?1%')
-            LIMIT ?3
-            OFFSET ?2
+            WHERE (:search IS NULL OR nombre LIKE %:search% OR descripcion LIKE %:search%)
+            LIMIT :limit
+            OFFSET :offset
             """, nativeQuery = true)
     public List<Producto> search(String search, int offset, int limit);
 }

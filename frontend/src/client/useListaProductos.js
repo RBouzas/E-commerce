@@ -1,11 +1,23 @@
+import { useEffect } from "react";
 import useFetch from "./useFetch";
 
 const useListaProductos = (offset, limit, search) => {
   const params = new URLSearchParams();
-  if (search && search.length > 3) params.set("search", search);
+
+  const searchEnabled = search && search.length > 3;
+  if (searchEnabled) params.set("search", search);
   params.set("offset", offset);
   params.set("limit", limit);
-  return useFetch({ url: `/api/productos?${params}` }, false);
+
+  const fetchHook = useFetch({ url: `/api/productos?${params}` }, false);
+  const { request } = fetchHook;
+
+  useEffect(() => {
+    request && request();
+    return () => {};
+  }, [request, params.toString()]);
+
+  return fetchHook;
 };
 
 export default useListaProductos;
