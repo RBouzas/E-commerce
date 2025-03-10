@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,8 +29,9 @@ public class AutenticacionRestController {
 
     @GetMapping("/me")
     public Usuario me(Authentication authentication) {
-        if (authentication == null)
+        if (authentication == null) {
             return null;
+        }
 
         EcommerceUserDetails usuario = (EcommerceUserDetails) authentication.getPrincipal();
         return usuario.getUsuario();
@@ -37,12 +39,18 @@ public class AutenticacionRestController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario registro(@RequestBody RegistroUsuarioDTO registroUsuarioDTO) {
-        Usuario usuario = new Usuario();
+    public String registro(@RequestBody RegistroUsuarioDTO registroUsuarioDTO) throws Exception {
         String contrasenha = passwordEncoder.encode(registroUsuarioDTO.getContrasenha());
-        usuario.setNombre(registroUsuarioDTO.getNombre());
-        usuario.setContrasenha(contrasenha);
-        return serUsu.crearUsuario(usuario);
+        String mensaje = serUsu.registrarUsuario(
+                registroUsuarioDTO.getNombre(),
+                registroUsuarioDTO.getMail(),
+                contrasenha);
+        return mensaje;
     }
 
+    @GetMapping("/verificar")
+    @ResponseStatus(HttpStatus.OK)
+    public String verificarCuenta(@RequestParam("token") String token) {
+        return serUsu.verificarUsuario(token);
+    }
 }

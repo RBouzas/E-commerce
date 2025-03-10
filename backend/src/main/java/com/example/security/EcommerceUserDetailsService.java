@@ -16,8 +16,15 @@ public class EcommerceUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Usuario usuario = serUsu.buscarUsuario(username);
-        EcommerceUserDetails user = new EcommerceUserDetails(usuario);
-        return user;
-    }
 
+        if (usuario == null) {
+            throw new UsernameNotFoundException("Usuario no encontrado");
+        }
+
+        if (!usuario.isMailVerificado()) {
+            throw new UnauthorizedException("El correo no ha sido verificado");
+        }
+
+        return new EcommerceUserDetails(usuario);
+    }
 }

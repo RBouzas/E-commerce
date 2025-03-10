@@ -16,8 +16,8 @@ const LoginPage = () => {
         <h3>Inicia sesión</h3>
         {registrado && (
           <div>
-            ¡Enhorabuena! Se ha registrado correctamente. A continuación inicie
-            sesión con su usuario y contraseña.
+            Ha completado el registro. A continuación verifique su cuenta para
+            poder iniciar sesión.
           </div>
         )}
         <form action="http://localhost:8080/api/performLogin" method="POST">
@@ -36,7 +36,10 @@ const LoginPage = () => {
             />
             <input type="submit" name="login" value="Iniciar sesión" />
             {loginError && (
-              <div>El usuario o la contraseña son incorrectos.</div>
+              <div>
+                El usuario o la contraseña son incorrectos, o no ha verificado
+                su cuenta.
+              </div>
             )}
           </Stack>
         </form>

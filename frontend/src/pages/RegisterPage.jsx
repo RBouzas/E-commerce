@@ -8,6 +8,7 @@ const RegisterPage = () => {
   const { request } = useRegistrarUsuario();
   const [nombre, setNombre] = useState("");
   const [contrasenha, setContrasenha] = useState("");
+  const [mail, setMail] = useState("");
   const navigate = useNavigate();
 
   return (
@@ -19,7 +20,7 @@ const RegisterPage = () => {
             event.preventDefault();
 
             request({
-              body: JSON.stringify({ nombre, contrasenha }),
+              body: JSON.stringify({ nombre, contrasenha, mail }),
             });
 
             navigate("/login?registrado=true");
@@ -33,6 +34,15 @@ const RegisterPage = () => {
               id="username"
               value={nombre}
               onChange={(event) => setNombre(event.target.value)}
+              required
+            />
+            <input
+              type="email"
+              placeholder="Correo electrónico"
+              name="email"
+              id="email"
+              value={mail}
+              onChange={(event) => setMail(event.target.value)}
               required
             />
             <input
