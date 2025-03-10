@@ -23,3 +23,6 @@ mvnw.cmd
 
 # statics
 **/resources/static
+
+# App Secrets
+backend/src/main/resources/secret.properties
