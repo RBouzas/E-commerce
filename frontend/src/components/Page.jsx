@@ -40,7 +40,7 @@ const Footer = () => {
     <Container>
       <Row>
         <Col>Página web creada por Rodrigo Bouzas</Col>
-        <Col>Desarrollo web en entorno cliente</Col>
+        <Col>Proyecto final</Col>
       </Row>
     </Container>
   );

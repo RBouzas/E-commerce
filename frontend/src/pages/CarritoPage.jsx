@@ -34,7 +34,7 @@ const ElementoCarrito = ({ elemento }) => {
         <img src={imagen} alt="Imagen del producto" />
       </Col>
       <Col>{nombre}</Col>
-      <Col>{precio}</Col>
+      <Col>{precio} &#8364;</Col>
       <Col>
         <ControlBorrarCarrito idCarrito={idCarrito} />
       </Col>
@@ -49,7 +49,7 @@ const PrecioTotal = ({ carrito }) => {
       .reduce((accum, elemento) => accum + elemento, 0);
   }, [carrito]);
 
-  return <div>Total: {total}</div>;
+  return <div>Total: {total}&#8364;</div>;
 };
 
 const CarritoPage = () => {

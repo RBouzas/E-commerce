@@ -10,13 +10,16 @@ import useListaProductos from "../client/useListaProductos";
 import ControlGuardarCarrito from "../components/ControlGuardarCarrito";
 import Page from "../components/Page";
 
-const ListaItem = ({ idProducto, nombre, imagen }) => {
+const ListaItem = ({ idProducto, nombre, imagen, precio }) => {
   return (
     <Card className="h-100">
       <Card.Img variant="top" src={imagen} alt="Imagen del producto" />
       <div className="flex-grow-1" />
       <Card.Body>
         <Card.Title>{nombre}</Card.Title>
+        <Card.Text>
+          <strong>Precio:</strong> {precio}&#8364;
+        </Card.Text>
         <Card.Link href={`/productos/${idProducto}`}>Detalles...</Card.Link>
         <div>
           <ControlGuardarCarrito idProducto={idProducto} />
@@ -91,6 +94,7 @@ const ListaProductosPage = () => {
                     idProducto={producto.idProducto}
                     nombre={producto.nombre}
                     imagen={producto.imagen}
+                    precio={producto.precio}
                   />
                 </Col>
               ))}

@@ -3,7 +3,13 @@ import useVerDetalle from "../client/useVerDetalle";
 import Page from "../components/Page";
 import ControlGuardarCarrito from "../components/ControlGuardarCarrito";
 
-const DetalleProducto = ({ idProducto, nombre, descripcion, imagen }) => {
+const DetalleProducto = ({
+  idProducto,
+  nombre,
+  descripcion,
+  imagen,
+  precio,
+}) => {
   return (
     <div>
       <div>
@@ -12,6 +18,10 @@ const DetalleProducto = ({ idProducto, nombre, descripcion, imagen }) => {
           <img src={imagen} alt="Imagen del producto" height="300px" />
         </div>
         <div>{descripcion}</div>
+        <div>
+          <strong>Precio: </strong>
+          {precio}&#8364;
+        </div>
         <div>
           <ControlGuardarCarrito idProducto={idProducto} />
         </div>
@@ -36,6 +46,7 @@ const DetalleProductoPage = () => {
             nombre={producto.nombre}
             descripcion={producto.descripcion}
             imagen={producto.imagen}
+            precio={producto.precio}
           />
         )}
       </div>
