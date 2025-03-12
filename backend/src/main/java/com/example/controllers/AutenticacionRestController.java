@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.controllers.dtos.RegistroUsuarioDTO;
+import com.example.controllers.dtos.UsuarioDTO;
 import com.example.model.Usuario;
 import com.example.security.EcommerceUserDetails;
 import com.example.services.UsuarioService;
@@ -28,13 +29,18 @@ public class AutenticacionRestController {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/me")
-    public Usuario me(Authentication authentication) {
+    public UsuarioDTO me(Authentication authentication) {
         if (authentication == null) {
             return null;
         }
 
         EcommerceUserDetails usuario = (EcommerceUserDetails) authentication.getPrincipal();
-        return usuario.getUsuario();
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        usuarioDTO.setNombre(usuario.getUsuario().getNombre());
+        usuarioDTO.setMail(usuario.getUsuario().getMail());
+        usuarioDTO.setRol(usuario.getUsuario().getRol());
+
+        return usuarioDTO;
     }
 
     @PostMapping("/register")

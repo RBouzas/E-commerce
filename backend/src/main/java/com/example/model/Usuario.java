@@ -1,7 +1,11 @@
 package com.example.model;
 
+import com.example.enums.Rol;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,23 +36,23 @@ public class Usuario {
     @Column(name = "mail_verificado", nullable = false)
     private boolean mailVerificado = false;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Rol rol;
 
     public Usuario() {
     }
 
-public Usuario(String nombre, String contrasenha, String mail, Rol rol) {
+    public Usuario(String nombre, String contrasenha, String mail, Rol rol) {
         this.nombre = nombre;
         this.contrasenha = contrasenha;
         this.mail = mail;
         this.mailVerificado = false;
+        this.rol = rol;
     }
 
     public Integer getIdUsuario() {
         return idUsuario;
-    }
-
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
     }
 
     public String getNombre() {
@@ -81,6 +85,14 @@ public Usuario(String nombre, String contrasenha, String mail, Rol rol) {
 
     public void setMailVerificado(boolean mailVerificado) {
         this.mailVerificado = mailVerificado;
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.example;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import org.springframework.stereotype.Component;
 
