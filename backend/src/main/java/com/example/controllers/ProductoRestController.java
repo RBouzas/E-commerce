@@ -1,7 +1,5 @@
 package com.example.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.controllers.dtos.ListaProductosDTO;
+import com.example.controllers.dtos.PaginacionDTO;
 import com.example.model.Producto;
 import com.example.services.ProductoService;
 
@@ -20,10 +20,13 @@ public class ProductoRestController {
     private ProductoService serProd;
 
     @GetMapping
-    public List<Producto> listar(@RequestParam(required = false) String search,
+    public ListaProductosDTO listar(@RequestParam(required = false) String search,
             @RequestParam(required = false) Integer offset,
             @RequestParam(required = false) Integer limit) {
-        return serProd.listarProductos(search, offset, limit);
+        long totalProductos = serProd.contarProductos(search);
+        long totalPaginas = Math.ceilDiv(totalProductos, limit);
+        return new ListaProductosDTO(serProd.listarProductos(search, offset, limit),
+                new PaginacionDTO(totalProductos, totalPaginas, offset / limit, offset, limit));
     }
 
     @GetMapping("/{id}")

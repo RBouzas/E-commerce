@@ -15,4 +15,11 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
             LIMIT :limit OFFSET :offset
             """, nativeQuery = true)
     public List<Producto> search(String search, int offset, int limit);
+
+    @Query(value = """
+            SELECT COUNT(*)
+            FROM productos
+            WHERE (:search IS NULL OR nombre LIKE %:search% OR descripcion LIKE %:search%)
+            """, nativeQuery = true)
+    public long count(String search);
 }

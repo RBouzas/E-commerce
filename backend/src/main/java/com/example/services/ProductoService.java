@@ -22,6 +22,10 @@ public class ProductoService {
         return repoProd.search(search, offset, limit);
     }
 
+    public long contarProductos(String search) {
+        return repoProd.count(search);
+    }
+
     public Producto mostrarDetalle(Integer id) {
         return repoProd.findById(id).orElse(null);
     }
