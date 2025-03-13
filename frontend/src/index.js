@@ -1,45 +1,71 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import Autenticado from "./components/Autenticado";
 import "./index.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+import AdminDetalleProductoPage from "./pages/AdminDetalleProductoPage";
+import AdminPage from "./pages/AdminPage";
+import AdminProductoPage from "./pages/AdminProductoPage";
+import CarritoPage from "./pages/CarritoPage";
 import DetalleProductoPage from "./pages/DetalleProductoPage";
 import HomePage from "./pages/HomePage";
-import reportWebVitals from "./reportWebVitals";
 import ListaProductosPage from "./pages/ListaProductosPage";
-import CarritoPage from "./pages/CarritoPage";
 import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
 import LogoutPage from "./pages/LogoutPage";
+import RegisterPage from "./pages/RegisterPage";
+import reportWebVitals from "./reportWebVitals";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
-  },
-  {
-    path: "/productos",
-    element: <ListaProductosPage />,
-  },
-  {
-    path: "/productos/:idProducto",
-    element: <DetalleProductoPage />,
-  },
-  {
-    path: "/carrito",
-    element: <CarritoPage />,
-  },
-  {
-    path: "/login",
-    element: <LoginPage />,
-  },
-  {
-    path: "/logout",
-    element: <LogoutPage />,
-  },
-  {
-    path: "/registro",
-    element: <RegisterPage />,
+    element: (
+      <Autenticado.Provider>
+        <Outlet />
+      </Autenticado.Provider>
+    ),
+    children: [
+      {
+        path: "/",
+        element: <HomePage />,
+      },
+      {
+        path: "/productos",
+        element: <ListaProductosPage />,
+      },
+      {
+        path: "/productos/:idProducto",
+        element: <DetalleProductoPage />,
+      },
+      {
+        path: "/carrito",
+        element: <CarritoPage />,
+      },
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
+      {
+        path: "/logout",
+        element: <LogoutPage />,
+      },
+      {
+        path: "/admin",
+        element: <AdminPage />,
+      },
+      {
+        path: "/admin/productos",
+        element: <AdminProductoPage />,
+      },
+      {
+        path: "/admin/productos/:idProducto",
+        element: <AdminDetalleProductoPage />,
+      },
+      {
+        path: "/registro",
+        element: <RegisterPage />,
+      },
+    ],
   },
 ]);
 
