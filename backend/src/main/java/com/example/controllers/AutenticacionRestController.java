@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.controllers.dtos.RegistroUsuarioDTO;
 import com.example.controllers.dtos.UsuarioDTO;
-import com.example.model.Usuario;
 import com.example.security.EcommerceUserDetails;
 import com.example.services.UsuarioService;
 

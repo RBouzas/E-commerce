@@ -1,6 +1,7 @@
 package com.example.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,8 +27,16 @@ public class ProductoService {
         return repoProd.count(search);
     }
 
-    public Producto mostrarDetalle(Integer id) {
-        return repoProd.findById(id).orElse(null);
+    public Optional<Producto> mostrarDetalle(Integer id) {
+        return repoProd.findById(id);
+    }
+
+    public void borrar(Integer id) {
+        repoProd.deleteById(id);
+    }
+
+    public Producto guardar(Producto producto) {
+        return repoProd.save(producto);
     }
 
 }
