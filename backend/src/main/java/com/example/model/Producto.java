@@ -19,6 +19,7 @@ public class Producto {
     private String descripcion;
     private float precio;
     private String imagen;
+    private Integer stock;
 
     public Producto() {
     }
@@ -63,10 +64,18 @@ public class Producto {
         this.imagen = imagen;
     }
 
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
     @Override
     public String toString() {
         return "Producto [idProducto=" + idProducto + ", nombre=" + nombre + ", descripcion=" + descripcion
-                + ", precio=" + precio + ", imagen=" + imagen + "]";
+                + ", precio=" + precio + ", imagen=" + imagen + ", stock=" + stock + "]";
     }
 
 }
