@@ -8,6 +8,7 @@ import Container from "react-bootstrap/esm/Container";
 import useListaProductos from "../client/useListaProductos";
 import ControlGuardarCarrito from "../components/ControlGuardarCarrito";
 import Page from "../components/Page";
+import Loading from "../components/Loading";
 
 const ListaItem = ({ idProducto, nombre, imagen, precio }) => {
   return (
@@ -15,7 +16,7 @@ const ListaItem = ({ idProducto, nombre, imagen, precio }) => {
       <Card.Img variant="top" src={imagen} alt="Imagen del producto" />
       <div className="flex-grow-1" />
       <Card.Body>
-        <Card.Title>{nombre}</Card.Title>
+        <Card.Title className="text-truncate">{nombre}</Card.Title>
         <Card.Text>
           <strong>Precio:</strong> {precio}&#8364;
         </Card.Text>
@@ -84,7 +85,7 @@ const ControlPaginacion = ({ pagina, totalPaginas, onCambioPagina }) => {
   );
 };
 
-const ListaProductosPage = () => {
+const ListaProductos = () => {
   const [pagina, setPagina] = useState(1);
   const [textoBusqueda, setTextoBusqueda] = useState("");
   const { data, loading: loadingListaProductos } = useListaProductos(
@@ -94,17 +95,16 @@ const ListaProductosPage = () => {
   );
 
   return (
-    <Page loading={loadingListaProductos}>
-      <Stack gap={4}>
-        <h1>Lista de productos</h1>
-        <ControlBusqueda
-          busqueda={textoBusqueda}
-          onCambioTextoBusqueda={(texto) => {
-            setTextoBusqueda(texto);
-            setPagina(1);
-          }}
-        />
-        <Container>
+    <>
+      <ControlBusqueda
+        busqueda={textoBusqueda}
+        onCambioTextoBusqueda={(texto) => {
+          setTextoBusqueda(texto);
+          setPagina(1);
+        }}
+      />
+      <Container>
+        <Loading loading={loadingListaProductos}>
           <Row>
             {data &&
               data.productos.map((producto) => (
@@ -118,7 +118,9 @@ const ListaProductosPage = () => {
                 </Col>
               ))}
           </Row>
-        </Container>
+        </Loading>
+      </Container>
+      <Loading loading={loadingListaProductos}>
         {data && (
           <ControlPaginacion
             pagina={pagina}
@@ -126,6 +128,17 @@ const ListaProductosPage = () => {
             onCambioPagina={setPagina}
           />
         )}
+      </Loading>
+    </>
+  );
+};
+
+const ListaProductosPage = () => {
+  return (
+    <Page>
+      <Stack gap={4}>
+        <h1>Lista de productos</h1>
+        <ListaProductos />
       </Stack>
     </Page>
   );

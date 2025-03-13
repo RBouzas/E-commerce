@@ -5,6 +5,7 @@ import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/esm/Container";
 import useListaProductos from "../client/useListaProductos";
 import Page from "../components/Page";
+import Loading from "../components/Loading";
 
 const Carrusel = () => {
   const { done, data, request } = useListaProductos(0, 100);
@@ -13,26 +14,26 @@ const Carrusel = () => {
     request && request();
   }, [request]);
 
-  if (!done) return null;
-
   return (
-    <section>
-      <h2 className="text-center mb-4">¡Destacados para tí!</h2>
-      <Container>
-        <Row>
-          {data.productos
-            .sort(() => (Math.random() > 0.5 ? -1 : 1))
-            .slice(0, 6)
-            .map(({ idProducto, nombre, imagen }) => (
-              <Col key={idProducto} md={6} xl={2}>
-                <a href={`/productos/${idProducto}`}>
-                  <Image src={imagen} alt={nombre} height="150px" />
-                </a>
-              </Col>
-            ))}
-        </Row>
-      </Container>
-    </section>
+    <Loading loading={!done}>
+      <section>
+        <h2 className="text-center mb-4">¡Destacados para tí!</h2>
+        <Container>
+          <Row>
+            {data?.productos
+              .sort(() => (Math.random() > 0.5 ? -1 : 1))
+              .slice(0, 6)
+              .map(({ idProducto, nombre, imagen }) => (
+                <Col key={idProducto} md={6} xl={2}>
+                  <a href={`/productos/${idProducto}`}>
+                    <Image src={imagen} alt={nombre} height="150px" />
+                  </a>
+                </Col>
+              ))}
+          </Row>
+        </Container>
+      </section>
+    </Loading>
   );
 };
 

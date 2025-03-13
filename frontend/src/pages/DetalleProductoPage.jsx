@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import useVerDetalle from "../client/useVerDetalle";
 import Page from "../components/Page";
 import ControlGuardarCarrito from "../components/ControlGuardarCarrito";
+import Loading from "../components/Loading";
 
 const DetalleProducto = ({
   idProducto,
@@ -36,20 +37,22 @@ const DetalleProductoPage = () => {
     useVerDetalle(idProducto);
 
   return (
-    <Page loading={loadingDetalleProducto}>
-      <h1>Producto</h1>
-      <div>
-        {producto && (
-          <DetalleProducto
-            key={producto.idProducto}
-            idProducto={producto.idProducto}
-            nombre={producto.nombre}
-            descripcion={producto.descripcion}
-            imagen={producto.imagen}
-            precio={producto.precio}
-          />
-        )}
-      </div>
+    <Page>
+      <Loading loading={loadingDetalleProducto}>
+        <h1>Producto</h1>
+        <div>
+          {producto && (
+            <DetalleProducto
+              key={producto.idProducto}
+              idProducto={producto.idProducto}
+              nombre={producto.nombre}
+              descripcion={producto.descripcion}
+              imagen={producto.imagen}
+              precio={producto.precio}
+            />
+          )}
+        </div>
+      </Loading>
     </Page>
   );
 };

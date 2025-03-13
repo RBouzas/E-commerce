@@ -7,6 +7,7 @@ import Stack from "react-bootstrap/Stack";
 import useBorrarCarrito from "../client/useBorrarCarrito";
 import useCarrito from "../client/useCarrito";
 import Page from "../components/Page";
+import Loading from "../components/Loading";
 
 const ControlBorrarCarrito = ({ idCarrito }) => {
   const { done, error, loading, request } = useBorrarCarrito(idCarrito);
@@ -56,15 +57,19 @@ const CarritoPage = () => {
   const { data: carrito, loading: loadingCarrito } = useCarrito();
 
   return (
-    <Page loading={loadingCarrito}>
-      <Stack gap={2} style={{ maxWidth: "50%" }} className="m-auto">
-        <h3>Tu carrito</h3>
-        <Container>
-          {carrito &&
-            carrito.map((elemento) => <ElementoCarrito elemento={elemento} />)}
-        </Container>
-        <PrecioTotal carrito={carrito} />
-      </Stack>
+    <Page>
+      <Loading loading={loadingCarrito}>
+        <Stack gap={2} style={{ maxWidth: "50%" }} className="m-auto">
+          <h3>Tu carrito</h3>
+          <Container>
+            {carrito &&
+              carrito.map((elemento) => (
+                <ElementoCarrito elemento={elemento} />
+              ))}
+          </Container>
+          <PrecioTotal carrito={carrito} />
+        </Stack>
+      </Loading>
     </Page>
   );
 };
