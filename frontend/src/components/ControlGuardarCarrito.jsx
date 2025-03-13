@@ -1,6 +1,7 @@
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import useGuardarCarrito from "../client/useGuardarCarrito";
 import Autenticado from "./Autenticado";
+import Button from "react-bootstrap/Button";
 
 const ControlGuardarCarrito = ({ idProducto }) => {
   const { done, error, loading, request } = useGuardarCarrito();
@@ -8,13 +9,15 @@ const ControlGuardarCarrito = ({ idProducto }) => {
   if (!done)
     return (
       <Autenticado>
-        <button
+        <Button
+          className="px-2"
           disabled={loading}
           onClick={() => request({ body: JSON.stringify({ idProducto }) })}
+          title="Añadir al carrito"
+          variant="secondary"
         >
           <AddShoppingCartIcon />
-          Añadir al carrito
-        </button>
+        </Button>
       </Autenticado>
     );
 

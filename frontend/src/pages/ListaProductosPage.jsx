@@ -25,11 +25,15 @@ const ListaItem = ({ idProducto, nombre, imagen, precio }) => {
         <Card.Text>
           <strong>Precio:</strong> {precio}&#8364;
         </Card.Text>
-        <Card.Link href={`/productos/${idProducto}`}>Detalles...</Card.Link>
-        <div>
-          <ControlGuardarCarrito idProducto={idProducto} />
-        </div>
       </Card.Body>
+      <Card.Footer>
+        <Stack direction="horizontal" gap={2}>
+          <Card.Link className="flex-grow-1" href={`/productos/${idProducto}`}>
+            Detalles...
+          </Card.Link>
+          <ControlGuardarCarrito idProducto={idProducto} />
+        </Stack>
+      </Card.Footer>
     </Card>
   );
 };
@@ -48,11 +52,12 @@ const ListaItemPlaceholder = () => (
       <Placeholder as={Card.Text} animation="glow">
         <Placeholder xs={2} /> <Placeholder xs={3} />
       </Placeholder>
+    </Card.Body>
+    <Card.Footer>
       <Placeholder as={Card.Link} animation="glow">
         <Placeholder xs={6} />
       </Placeholder>
-      <div></div>
-    </Card.Body>
+    </Card.Footer>
   </Card>
 );
 
