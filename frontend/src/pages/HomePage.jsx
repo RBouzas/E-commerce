@@ -7,7 +7,7 @@ import useListaProductos from "../client/useListaProductos";
 import Page from "../components/Page";
 
 const Carrusel = () => {
-  const { done, data, request } = useListaProductos(0, 6);
+  const { done, data, request } = useListaProductos(0, 100);
 
   useEffect(() => {
     request && request();
@@ -17,15 +17,19 @@ const Carrusel = () => {
 
   return (
     <section>
+      <h2 className="text-center mb-4">¡Destacados para tí!</h2>
       <Container>
         <Row>
-          {data.productos.map(({ idProducto, nombre, imagen }) => (
-            <Col key={idProducto} md={6} xl={2}>
-              <a href={`/productos/${idProducto}`}>
-                <Image src={imagen} alt={nombre} height="150px" />
-              </a>
-            </Col>
-          ))}
+          {data.productos
+            .sort(() => (Math.random() > 0.5 ? -1 : 1))
+            .slice(0, 6)
+            .map(({ idProducto, nombre, imagen }) => (
+              <Col key={idProducto} md={6} xl={2}>
+                <a href={`/productos/${idProducto}`}>
+                  <Image src={imagen} alt={nombre} height="150px" />
+                </a>
+              </Col>
+            ))}
         </Row>
       </Container>
     </section>
@@ -38,7 +42,7 @@ const HomePage = () => {
       <Container className="my-auto">
         <main>
           <Carrusel />
-          <section>
+          <section className="mt-5">
             <p>
               Bienvenidos a Technology Heaven, tu destino para lo último en
               tecnología y electrónica de consumo. En Technology Heaven, nos
