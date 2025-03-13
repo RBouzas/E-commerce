@@ -28,6 +28,10 @@ public class UsuarioService {
         return repoUsu.findUsuarioByNombre(nombre);
     }
 
+    public Usuario buscarUsuarioPorId(Integer id) {
+        return repoUsu.findById(id).orElse(null);
+    }
+
     public String registrarUsuario(String nombre, String email, String contrasenha) throws MessagingException {
         if (repoUsu.findByMail(email).isPresent()) {
             return "Error: El email ya está registrado.";
