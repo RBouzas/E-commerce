@@ -3,10 +3,21 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Row from "react-bootstrap/Row";
+import Spinner from "react-bootstrap/Spinner";
+import Stack from "react-bootstrap/Stack";
 import Autenticado from "./Autenticado";
 
 const Loading = () => {
-  return "Loading....";
+  return (
+    <Stack
+      className="align-items-center justify-content-center"
+      direction="horizontal"
+      gap="4"
+    >
+      <Spinner />
+      <h3>Loading...</h3>
+    </Stack>
+  );
 };
 
 const Navigation = () => {
@@ -47,13 +58,7 @@ const Footer = () => {
 };
 
 const Page = ({ loading, children }) => {
-  if (loading) {
-    return (
-      <div>
-        <Loading />
-      </div>
-    );
-  }
+  const content = loading ? <Loading /> : children;
 
   return (
     <Container className="d-flex flex-column min-vh-100">
@@ -62,7 +67,7 @@ const Page = ({ loading, children }) => {
           <Navigation />
         </Col>
       </Row>
-      <Row className="flex-grow-1">{children}</Row>
+      <Row className="flex-grow-1">{content}</Row>
       <Row>
         <Footer />
       </Row>
