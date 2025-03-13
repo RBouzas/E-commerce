@@ -1,6 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import Page from "../components/Page";
 import Stack from "react-bootstrap/Stack";
+import TituloPagina from "../components/TituloPagina";
 
 const LoginPage = () => {
   const [searchParams] = useSearchParams();
@@ -13,7 +14,7 @@ const LoginPage = () => {
   return (
     <Page>
       <Stack gap={2} style={{ maxWidth: "50%" }} className="m-auto">
-        <h3>Inicia sesión</h3>
+        <TituloPagina>Inicia sesión</TituloPagina>
         {registrado && (
           <div>
             Ha completado el registro. A continuación verifique su cuenta para

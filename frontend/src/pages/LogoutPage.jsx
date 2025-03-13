@@ -1,4 +1,5 @@
 import Page from "../components/Page";
+import TituloPagina from "../components/TituloPagina";
 import useCerrarSesion from "./../client/useCerrarSesion";
 import Stack from "react-bootstrap/Stack";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +11,7 @@ const LogoutPage = () => {
   return (
     <Page>
       <Stack gap={2} style={{ maxWidth: "50%" }} className="m-auto">
-        <h3>Terminar su sesión en este dispositivo</h3>
+        <TituloPagina>Terminar su sesión en este dispositivo</TituloPagina>
         <button
           onClick={() => {
             request();

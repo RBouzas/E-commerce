@@ -3,6 +3,7 @@ import Stack from "react-bootstrap/Stack";
 import { useNavigate } from "react-router-dom";
 import useRegistrarUsuario from "../client/useRegistrarUsuario";
 import Page from "../components/Page";
+import TituloPagina from "../components/TituloPagina";
 
 const RegisterPage = () => {
   const { request } = useRegistrarUsuario();
@@ -14,7 +15,7 @@ const RegisterPage = () => {
   return (
     <Page>
       <Stack gap={2} style={{ maxWidth: "50%" }} className="m-auto">
-        <h3>Crea tu cuenta</h3>
+        <TituloPagina>Crea tu cuenta</TituloPagina>
         <form
           onSubmit={(event) => {
             event.preventDefault();

@@ -6,6 +6,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Stack from "react-bootstrap/Stack";
 import Page from "../components/Page";
+import TituloPagina from "../components/TituloPagina";
 
 const ItemPanel = ({ titulo, descripcion, link, disabled }) => (
   <Col sm={12} md={6} lg={4} xl={3} xxl={2}>
@@ -30,7 +31,7 @@ const AdminPage = () => {
     <Page>
       <Container>
         <Row>
-          <h1>Panel de control</h1>
+          <TituloPagina>Panel de control</TituloPagina>
         </Row>
         <Row>
           <ItemPanel

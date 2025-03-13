@@ -3,7 +3,7 @@ import useAutenticacion from "../client/useAutenticacion";
 
 const AutenticadoContext = createContext(null);
 
-const Autenticado = ({ children, fallback }) => {
+const Autenticado = ({ children, fallback, rol }) => {
   const autenticado = useContext(AutenticadoContext);
 
   if (autenticado === null || autenticado.loading) {
@@ -11,6 +11,10 @@ const Autenticado = ({ children, fallback }) => {
   }
 
   if (!autenticado.data || autenticado.data.length === 0) {
+    return fallback;
+  }
+
+  if (rol !== undefined && autenticado.data.rol !== rol) {
     return fallback;
   }
 

@@ -8,6 +8,7 @@ import useBorrarCarrito from "../client/useBorrarCarrito";
 import useCarrito from "../client/useCarrito";
 import Page from "../components/Page";
 import Loading from "../components/Loading";
+import TituloPagina from "../components/TituloPagina";
 
 const ControlBorrarCarrito = ({ idCarrito }) => {
   const { done, error, loading, request } = useBorrarCarrito(idCarrito);
@@ -60,7 +61,7 @@ const CarritoPage = () => {
     <Page>
       <Loading loading={loadingCarrito}>
         <Stack gap={2} style={{ maxWidth: "50%" }} className="m-auto">
-          <h3>Tu carrito</h3>
+          <TituloPagina>Tu carrito</TituloPagina>
           <Container>
             {carrito &&
               carrito.map((elemento) => (

@@ -3,6 +3,7 @@ import useVerDetalle from "../client/useVerDetalle";
 import Page from "../components/Page";
 import ControlGuardarCarrito from "../components/ControlGuardarCarrito";
 import Loading from "../components/Loading";
+import TituloPagina from "../components/TituloPagina";
 
 const DetalleProducto = ({
   idProducto,
@@ -39,7 +40,7 @@ const DetalleProductoPage = () => {
   return (
     <Page>
       <Loading loading={loadingDetalleProducto}>
-        <h1>Producto</h1>
+        <TituloPagina>Producto</TituloPagina>
         <div>
           {producto && (
             <DetalleProducto
