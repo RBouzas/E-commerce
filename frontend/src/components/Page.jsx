@@ -21,6 +21,9 @@ const Navigation = () => {
           <Nav className="me-auto">
             <Nav.Link href="/productos">Productos</Nav.Link>
             <Nav.Link href="/carrito">Carrito</Nav.Link>
+            <Autenticado rol="ADMIN" fallback={fallback}>
+              <Nav.Link href="/admin">Administración</Nav.Link>
+            </Autenticado>
             <Autenticado fallback={fallback}>
               <Nav.Link href="/logout">Logout</Nav.Link>
             </Autenticado>
@@ -44,7 +47,7 @@ const Footer = () => {
 
 const Page = ({ children }) => {
   return (
-    <Container className="d-flex flex-column min-vh-100">
+    <Container className="d-flex flex-column min-vh-100 gap-4">
       <Row>
         <Col>
           <Navigation />
