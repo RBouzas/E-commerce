@@ -12,6 +12,8 @@ import ControlPaginacion from "../components/ControlPaginacion";
 import Page from "../components/Page";
 import TituloPagina from "../components/TituloPagina";
 import useEliminarProducto from "../client/useEliminarProducto";
+import Autenticado from "../components/Autenticado";
+import AccesoRestringido from "../components/AccesoRestringido";
 
 const DeleteConfirmation = ({ show, onClose, nombre }) => (
   <Modal show={show} onHide={() => onClose(false)}>
@@ -176,13 +178,15 @@ const TablaProductos = () => {
   );
 };
 
-const AdminProductoPage = (props) => {
+const AdminProductoPage = () => {
   return (
     <Page>
-      <Stack gap={4}>
-        <TituloPagina>Inventario</TituloPagina>
-        <TablaProductos />
-      </Stack>
+      <Autenticado rol="ADMIN" fallback={<AccesoRestringido />}>
+        <Stack gap={4}>
+          <TituloPagina>Inventario</TituloPagina>
+          <TablaProductos />
+        </Stack>
+      </Autenticado>
     </Page>
   );
 };

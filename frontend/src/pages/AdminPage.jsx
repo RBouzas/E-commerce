@@ -7,6 +7,8 @@ import Row from "react-bootstrap/Row";
 import Stack from "react-bootstrap/Stack";
 import Page from "../components/Page";
 import TituloPagina from "../components/TituloPagina";
+import Autenticado from "../components/Autenticado";
+import AccesoRestringido from "../components/AccesoRestringido";
 
 const ItemPanel = ({ titulo, descripcion, link, disabled }) => (
   <Col sm={12} md={6} lg={4} xl={3} xxl={2}>
@@ -29,30 +31,32 @@ const ItemPanel = ({ titulo, descripcion, link, disabled }) => (
 const AdminPage = () => {
   return (
     <Page>
-      <Container>
-        <Row>
-          <TituloPagina>Panel de control</TituloPagina>
-        </Row>
-        <Row>
-          <ItemPanel
-            titulo="Inventario"
-            descripcion="Cree o modifique productos a la venta, stocks, precios..."
-            link="/admin/productos"
-          />
-          <ItemPanel
-            titulo="Usuarios"
-            descripcion="Controle el acceso a la tienda, cuentas de administración, perfiles de usario..."
-            link="#"
-            disabled
-          />
-          <ItemPanel
-            titulo="Pedidos"
-            descripcion="Consulte el estado de los pedidos e historiales de compra."
-            link="#"
-            disabled
-          />
-        </Row>
-      </Container>
+      <Autenticado rol="ADMIN" fallback={<AccesoRestringido />}>
+        <Container>
+          <Row>
+            <TituloPagina>Panel de control</TituloPagina>
+          </Row>
+          <Row>
+            <ItemPanel
+              titulo="Inventario"
+              descripcion="Cree o modifique productos a la venta, stocks, precios..."
+              link="/admin/productos"
+            />
+            <ItemPanel
+              titulo="Usuarios"
+              descripcion="Controle el acceso a la tienda, cuentas de administración, perfiles de usario..."
+              link="#"
+              disabled
+            />
+            <ItemPanel
+              titulo="Pedidos"
+              descripcion="Consulte el estado de los pedidos e historiales de compra."
+              link="#"
+              disabled
+            />
+          </Row>
+        </Container>
+      </Autenticado>
     </Page>
   );
 };
