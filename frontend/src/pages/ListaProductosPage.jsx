@@ -21,7 +21,9 @@ const ListaItem = ({ idProducto, nombre, imagen, precio }) => {
         alt="Imagen del producto"
       />
       <Card.Body>
-        <Card.Title className="text-truncate">{nombre}</Card.Title>
+        <Card.Title title={nombre} className="text-truncate">
+          {nombre}
+        </Card.Title>
         <Card.Text>
           <strong>Precio:</strong> {precio}&#8364;
         </Card.Text>
