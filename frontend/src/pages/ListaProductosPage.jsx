@@ -1,8 +1,7 @@
-import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
+import Pagination from "react-bootstrap/Pagination";
 import Row from "react-bootstrap/Row";
 import Stack from "react-bootstrap/Stack";
 import Container from "react-bootstrap/esm/Container";
@@ -41,38 +40,58 @@ const ControlBusqueda = ({ busqueda, onCambioTextoBusqueda }) => (
   />
 );
 
-const ControlPaginacion = ({ pagina, onCambioPagina }) => (
-  <div className="mx-auto">
-    <Container>
-      <Row>
-        <Col>
-          <button
-            disabled={pagina === 1}
-            onClick={() => onCambioPagina(pagina - 1)}
+const ControlPaginacion = ({ pagina, totalPaginas, onCambioPagina }) => {
+  const minima = Math.max(1, pagina - 1);
+  const maxima = Math.min(totalPaginas, minima + 2);
+  const paginas = [];
+
+  for (let numero = minima; numero <= maxima; numero++) {
+    if (numero > 0 && numero <= totalPaginas) {
+      paginas.push(numero);
+    }
+  }
+
+  return (
+    <div className="mx-auto">
+      <Pagination>
+        <Pagination.First
+          disabled={pagina === 1}
+          onClick={() => onCambioPagina(1)}
+        />
+        <Pagination.Prev
+          disabled={pagina === 1}
+          onClick={() => onCambioPagina(pagina - 1)}
+        />
+        {paginas.map((numero) => (
+          <Pagination.Item
+            key={numero}
+            active={numero === pagina}
+            onClick={() => onCambioPagina(numero)}
           >
-            <NavigateBeforeIcon />
-          </button>
-        </Col>
-        <Col>{pagina}</Col>
-        <Col>
-          <button onClick={() => onCambioPagina(pagina + 1)}>
-            <NavigateNextIcon />
-          </button>
-        </Col>
-      </Row>
-    </Container>
-  </div>
-);
+            {numero}
+          </Pagination.Item>
+        ))}
+        <Pagination.Next
+          disabled={pagina === totalPaginas}
+          onClick={() => onCambioPagina(pagina + 1)}
+        />
+        <Pagination.Last
+          disabled={pagina === totalPaginas}
+          onClick={() => onCambioPagina(totalPaginas)}
+        />
+      </Pagination>
+    </div>
+  );
+};
 
 const ListaProductosPage = () => {
   const [pagina, setPagina] = useState(1);
   const [textoBusqueda, setTextoBusqueda] = useState("");
-  const { data: listaProductos, loading: loadingListaProductos } =
-    useListaProductos(
-      ELEMENTOS_POR_PAGINA * (pagina - 1),
-      ELEMENTOS_POR_PAGINA,
-      textoBusqueda
-    );
+  const { data, loading: loadingListaProductos } = useListaProductos(
+    ELEMENTOS_POR_PAGINA * (pagina - 1),
+    ELEMENTOS_POR_PAGINA,
+    textoBusqueda
+  );
 
   return (
     <Page loading={loadingListaProductos}>
@@ -87,8 +106,8 @@ const ListaProductosPage = () => {
         />
         <Container>
           <Row>
-            {listaProductos &&
-              listaProductos.map((producto) => (
+            {data &&
+              data.productos.map((producto) => (
                 <Col key={producto.idProducto} md={6} xl={2}>
                   <ListaItem
                     idProducto={producto.idProducto}
@@ -100,7 +119,13 @@ const ListaProductosPage = () => {
               ))}
           </Row>
         </Container>
-        <ControlPaginacion pagina={pagina} onCambioPagina={setPagina} />
+        {data && (
+          <ControlPaginacion
+            pagina={pagina}
+            totalPaginas={data.paginacion.totalPaginas}
+            onCambioPagina={setPagina}
+          />
+        )}
       </Stack>
     </Page>
   );

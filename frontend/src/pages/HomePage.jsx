@@ -7,7 +7,7 @@ import useListaProductos from "../client/useListaProductos";
 import Page from "../components/Page";
 
 const Carrusel = () => {
-  const { done, data: listaProductos, request } = useListaProductos(0, 6);
+  const { done, data, request } = useListaProductos(0, 6);
 
   useEffect(() => {
     request && request();
@@ -19,7 +19,7 @@ const Carrusel = () => {
     <section>
       <Container>
         <Row>
-          {listaProductos.map(({ idProducto, nombre, imagen }) => (
+          {data.productos.map(({ idProducto, nombre, imagen }) => (
             <Col key={idProducto} md={6} xl={2}>
               <a href={`/productos/${idProducto}`}>
                 <Image src={imagen} alt={nombre} height="150px" />

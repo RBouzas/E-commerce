@@ -6,7 +6,7 @@ const useListaProductos = (offset, limit, search) => {
 
   const searchEnabled = search && search.length > 3;
   if (searchEnabled) params.set("search", search);
-  if (offset) params.set("offset", offset);
+  params.set("offset", offset);
   if (limit) params.set("limit", limit);
   const paramsString = params.toString();
 
