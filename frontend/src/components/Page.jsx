@@ -21,7 +21,7 @@ const Navigation = () => {
           <Nav className="me-auto">
             <Nav.Link href="/productos">Productos</Nav.Link>
             <Nav.Link href="/carrito">Carrito</Nav.Link>
-            <Autenticado rol="ADMIN" fallback={fallback}>
+            <Autenticado rol="ADMIN">
               <Nav.Link href="/admin">Administración</Nav.Link>
             </Autenticado>
             <Autenticado fallback={fallback}>
