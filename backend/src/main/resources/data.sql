@@ -1,6 +1,6 @@
 INSERT INTO productos (nombre, descripcion, precio, imagen, stock) VALUES
-('Laptop ASUS VivoBook', 'Laptop ASUS VivoBook con pantalla de 15.6 pulgadas, procesador Intel Core i5, 8GB de RAM y 256GB SSD.', 749.99, '/images/asus_vivobook.jpg', 15),
-('Mouse Logitech MX Master 3', 'Mouse inalámbrico Logitech MX Master 3 con diseño ergonómico, múltiples botones personalizables y batería recargable.', 99.99, '/images/logitech_mx_master_3.jpg', 32),
+('Laptop ASUS VivoBook', 'Laptop ASUS VivoBook con pantalla de 15.6 pulgadas, procesador Intel Core i5, 8GB de RAM y 256GB SSD.', 749.99, '/images/asus_vivobook.jpg', 0),
+('Mouse Logitech MX Master 3', 'Mouse inalámbrico Logitech MX Master 3 con diseño ergonómico, múltiples botones personalizables y batería recargable.', 99.99, '/images/logitech_mx_master_3.jpg', 0),
 ('Teclado Mecánico Razer BlackWidow', 'Teclado mecánico Razer BlackWidow con switches verdes, retroiluminación RGB y teclas completamente programables.', 129.99, '/images/razer_blackwidow.jpg', 27),
 ('Monitor Dell UltraSharp', 'Monitor Dell UltraSharp de 27 pulgadas con resolución 4K UHD, panel IPS y tecnología de calibración de color.', 399.99, '/images/dell_ultrasharp.jpg', 10),
 ('Disco Duro Externo Seagate', 'Disco duro externo Seagate de 2TB con conexión USB 3.0, ideal para almacenar grandes cantidades de datos y copias de seguridad.', 89.99, '/images/seagate_2tb.jpg', 12),
