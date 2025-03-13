@@ -2,19 +2,24 @@ import { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Pagination from "react-bootstrap/Pagination";
+import Placeholder from "react-bootstrap/Placeholder";
 import Row from "react-bootstrap/Row";
 import Stack from "react-bootstrap/Stack";
 import Container from "react-bootstrap/esm/Container";
 import useListaProductos from "../client/useListaProductos";
 import ControlGuardarCarrito from "../components/ControlGuardarCarrito";
 import Page from "../components/Page";
-import Loading from "../components/Loading";
 
 const ListaItem = ({ idProducto, nombre, imagen, precio }) => {
   return (
-    <Card className="h-100">
-      <Card.Img variant="top" src={imagen} alt="Imagen del producto" />
-      <div className="flex-grow-1" />
+    <Card className="h-100 d-flex">
+      <Card.Img
+        variant="top"
+        style={{ height: "10vw" }}
+        className="flex-grow-1 object-fit-contain"
+        src={imagen}
+        alt="Imagen del producto"
+      />
       <Card.Body>
         <Card.Title className="text-truncate">{nombre}</Card.Title>
         <Card.Text>
@@ -28,6 +33,28 @@ const ListaItem = ({ idProducto, nombre, imagen, precio }) => {
     </Card>
   );
 };
+
+const ListaItemPlaceholder = () => (
+  <Card className="h-100 d-flex">
+    <Card.Img
+      variant="top"
+      style={{ height: "10vw" }}
+      className="flex-grow-1 object-fit-contain invisible"
+    />
+    <Card.Body>
+      <Placeholder className="text-truncate" as={Card.Title} animation="glow">
+        <Placeholder xs={6} />
+      </Placeholder>
+      <Placeholder as={Card.Text} animation="glow">
+        <Placeholder xs={2} /> <Placeholder xs={3} />
+      </Placeholder>
+      <Placeholder as={Card.Link} animation="glow">
+        <Placeholder xs={6} />
+      </Placeholder>
+      <div></div>
+    </Card.Body>
+  </Card>
+);
 
 const ELEMENTOS_POR_PAGINA = 6;
 
@@ -104,11 +131,16 @@ const ListaProductos = () => {
         }}
       />
       <Container>
-        <Loading loading={loadingListaProductos}>
-          <Row>
-            {data &&
+        <Row className="row-gap-4">
+          {loadingListaProductos
+            ? Array.from({ length: 6 }).map((_, indice) => (
+                <Col key={indice} md={6} lg={4} xl={2}>
+                  <ListaItemPlaceholder />
+                </Col>
+              ))
+            : data &&
               data.productos.map((producto) => (
-                <Col key={producto.idProducto} md={6} xl={2}>
+                <Col key={producto.idProducto} md={6} lg={4} xl={2}>
                   <ListaItem
                     idProducto={producto.idProducto}
                     nombre={producto.nombre}
@@ -117,18 +149,15 @@ const ListaProductos = () => {
                   />
                 </Col>
               ))}
-          </Row>
-        </Loading>
+        </Row>
       </Container>
-      <Loading loading={loadingListaProductos}>
-        {data && (
-          <ControlPaginacion
-            pagina={pagina}
-            totalPaginas={data.paginacion.totalPaginas}
-            onCambioPagina={setPagina}
-          />
-        )}
-      </Loading>
+      {data && (
+        <ControlPaginacion
+          pagina={pagina}
+          totalPaginas={data.paginacion.totalPaginas}
+          onCambioPagina={setPagina}
+        />
+      )}
     </>
   );
 };
