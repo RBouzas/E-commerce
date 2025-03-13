@@ -1,0 +1,33 @@
+package com.example.services;
+
+import com.example.model.Favorito;
+import com.example.model.Usuario;
+import com.example.model.Producto;
+import com.example.repository.FavoritoRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import java.util.List;
+
+@Service
+public class FavoritoService {
+
+    @Autowired
+    private FavoritoRepository repoFav;
+
+    public List<Favorito> obtenerFavoritosPorUsuario(Usuario usuario) {
+        return repoFav.findByUsuario(usuario);
+    }
+
+    public Favorito agregarAFavoritos(Usuario usuario, Producto producto) {
+        if (!repoFav.existsByUsuarioAndProducto(usuario, producto)) {
+            Favorito favorito = new Favorito(usuario, producto);
+            return repoFav.save(favorito);
+        }
+        return null;
+    }
+
+    public void eliminarDeFavoritos(Usuario usuario, Producto producto) {
+        repoFav.deleteByUsuarioAndProducto(usuario, producto);
+    }
+}
