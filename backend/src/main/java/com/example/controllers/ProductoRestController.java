@@ -1,5 +1,6 @@
 package com.example.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.controllers.dtos.ListaProductosDTO;
 import com.example.controllers.dtos.PaginacionDTO;
+import com.example.controllers.dtos.ProductoDTO;
 import com.example.model.Producto;
 import com.example.services.ProductoService;
 
@@ -32,7 +34,11 @@ public class ProductoRestController {
             @RequestParam(required = false, defaultValue = "6") Integer limit) {
         long totalProductos = serProd.contarProductos(search);
         long totalPaginas = Math.ceilDiv(totalProductos, limit);
-        return new ListaProductosDTO(serProd.listarProductos(search, offset, limit),
+
+        List<Producto> productos = serProd.listarProductos(search, offset, limit);
+        List<ProductoDTO> productosDTO = productos.stream().map(producto -> new ProductoDTO(producto)).toList();
+
+        return new ListaProductosDTO(productosDTO,
                 new PaginacionDTO(totalProductos, totalPaginas, offset / limit, offset, limit));
     }
 

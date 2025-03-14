@@ -1,5 +1,7 @@
 package com.example.controllers.dtos;
 
+import com.example.model.Producto;
+
 public class ProductoDTO {
     private String nombre;
     private String descripcion;
@@ -16,6 +18,14 @@ public class ProductoDTO {
         this.precio = precio;
         this.imagen = imagen;
         this.stock = stock;
+    }
+
+    public ProductoDTO(Producto producto) {
+        this.nombre = producto.getNombre();
+        this.descripcion = producto.getDescripcion();
+        this.precio = producto.getPrecio();
+        this.imagen = producto.getImagen();
+        this.descripcion = producto.getDescripcion();
     }
 
     public String getNombre() {

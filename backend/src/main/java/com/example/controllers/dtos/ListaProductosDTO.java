@@ -2,13 +2,11 @@ package com.example.controllers.dtos;
 
 import java.util.List;
 
-import com.example.model.Producto;
-
 public class ListaProductosDTO {
-    private List<Producto> productos;
+    private List<ProductoDTO> productos;
     private PaginacionDTO paginacion;
 
-    public ListaProductosDTO(List<Producto> productos, PaginacionDTO paginacion) {
+    public ListaProductosDTO(List<ProductoDTO> productos, PaginacionDTO paginacion) {
         this.productos = productos;
         this.paginacion = paginacion;
     }
@@ -16,11 +14,11 @@ public class ListaProductosDTO {
     public ListaProductosDTO() {
     }
 
-    public List<Producto> getProductos() {
+    public List<ProductoDTO> getProductos() {
         return productos;
     }
 
-    public void setProductos(List<Producto> productos) {
+    public void setProductos(List<ProductoDTO> productos) {
         this.productos = productos;
     }
 
