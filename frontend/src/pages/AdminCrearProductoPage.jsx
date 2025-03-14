@@ -47,7 +47,7 @@ const AdminCrearProductoPage = () => {
 
   return (
     <Page>
-      <TituloPagina>Editar producto</TituloPagina>
+      <TituloPagina>Nuevo producto</TituloPagina>
       <Autenticado rol="ADMIN" fallback={<AccesoRestringido />}>
         <Form
           onSubmit={(event) => {

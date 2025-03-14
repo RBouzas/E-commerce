@@ -21,7 +21,7 @@ const ControlBorrarDeseados = ({ idProducto }) => {
       </Autenticado>
     );
 
-  if (error) return <span>Error eliminando a la lista de deseados</span>;
+  if (error) return <span>Error eliminando de la lista de deseados</span>;
 
   return <span>Eliminado de deseados</span>;
 };

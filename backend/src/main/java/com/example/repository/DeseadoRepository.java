@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Repository
@@ -17,5 +19,6 @@ public interface DeseadoRepository extends JpaRepository<Deseado, Integer> {
 
     boolean existsByUsuarioAndProducto(Usuario usuario, Producto producto);
 
+    @Transactional
     void deleteByUsuarioAndProducto(Usuario usuario, Producto producto);
 }

@@ -30,6 +30,7 @@ const ListaDeseados = () => {
     <Container className="d-grid flex-grow-1">
       <Row className="row-gap-2">
         <Loading loading={loading} />
+        {data?.length === 0 && "¡Todavía no hay nada en tu lista de deseados!"}
         {data?.map((deseado) => (
           <Col key={deseado.idProducto}>
             <TarjetaProducto

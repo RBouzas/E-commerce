@@ -9,16 +9,17 @@ import useCarrito from "../client/useCarrito";
 import Loading from "../components/Loading";
 import Page from "../components/Page";
 import TituloPagina from "../components/TituloPagina";
+import Button from "react-bootstrap/Button";
 
-const ControlBorrarCarrito = ({ idCarrito }) => {
+const ControlBorrarCarrito = ({ idCarrito, refrescar }) => {
   const { done, error, loading, request } = useBorrarCarrito(idCarrito);
 
   if (!done)
     return (
-      <button disabled={loading} onClick={() => request()}>
+      <Button disabled={loading} onClick={() => request().finally(refrescar)}>
         <RemoveShoppingCartIcon />
         Eliminar
-      </button>
+      </Button>
     );
 
   if (error) return <span>Error eliminando producto del carrito</span>;
@@ -26,7 +27,7 @@ const ControlBorrarCarrito = ({ idCarrito }) => {
   return <span>Eliminado del carrito</span>;
 };
 
-const ElementoCarrito = ({ elemento }) => {
+const ElementoCarrito = ({ elemento, refrescar }) => {
   const { idCarrito, producto } = elemento;
   const { nombre, precio, imagen } = producto;
   return (
@@ -37,7 +38,7 @@ const ElementoCarrito = ({ elemento }) => {
       <Col>{nombre}</Col>
       <Col>{precio} &#8364;</Col>
       <Col>
-        <ControlBorrarCarrito idCarrito={idCarrito} />
+        <ControlBorrarCarrito idCarrito={idCarrito} refrescar={refrescar} />
       </Col>
     </Row>
   );
@@ -54,7 +55,7 @@ const PrecioTotal = ({ carrito }) => {
 };
 
 const CarritoPage = () => {
-  const { data: carrito, loading: loadingCarrito } = useCarrito();
+  const { data: carrito, loading: loadingCarrito, request } = useCarrito();
 
   return (
     <Page>
@@ -64,7 +65,7 @@ const CarritoPage = () => {
           <Container>
             {carrito &&
               carrito.map((elemento) => (
-                <ElementoCarrito elemento={elemento} />
+                <ElementoCarrito elemento={elemento} refrescar={request} />
               ))}
           </Container>
           <PrecioTotal carrito={carrito} />
