@@ -15,6 +15,7 @@ import LoginPage from "./pages/LoginPage";
 import LogoutPage from "./pages/LogoutPage";
 import RegisterPage from "./pages/RegisterPage";
 import reportWebVitals from "./reportWebVitals";
+import AdminCrearProductoPage from "./pages/AdminCrearProductoPage";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: "/admin/productos/:idProducto",
         element: <AdminDetalleProductoPage />,
+      },
+      {
+        path: "/admin/productos/nuevo",
+        element: <AdminCrearProductoPage />,
       },
       {
         path: "/registro",
