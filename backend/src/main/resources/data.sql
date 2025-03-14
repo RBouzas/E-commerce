@@ -19,3 +19,14 @@ INSERT INTO productos (nombre, descripcion, precio, imagen, stock) VALUES
 ('Laptop Gaming MSI GF65 Thin', 'Laptop gaming MSI GF65 Thin con pantalla de 15.6 pulgadas, procesador Intel Core i7, 16GB de RAM y tarjeta gráfica NVIDIA GeForce GTX 1660 Ti.', 1099.99, '/images/msi_gf65_thin.jpg', 14),
 ('Kit de Iluminación Elgato Key Light', 'Kit de iluminación Elgato Key Light con brillo ajustable, temperatura de color personalizable y control inalámbrico.', 199.99, '/images/elgato_key_light.jpg', 8),
 ('Disco Duro Interno Samsung 970 EVO', 'Disco duro interno SSD Samsung 970 EVO de 1TB con tecnología NVMe, altas velocidades de lectura y escritura.', 169.99, '/images/samsung_970_evo.jpg', 17);
+
+INSERT INTO usuarios (nombre, contrasenha, mail, mail_verificado, rol) VALUES
+('admin', '$2a$10$LfVYxZgdal0kYzbLRS277O.q.CjHrcKWb61iWKv9xM4GhZeqJXFba', 'technologyheavenstore@gmail.com', true, 'ADMIN');
+
+INSERT INTO favoritos (id_usuario, id_producto) VALUES 
+(1,3),
+(1,5);
+
+INSERT INTO deseados (id_usuario, id_producto) VALUES 
+(1,1),
+(1,2);

@@ -15,8 +15,8 @@ public class FavoritoService {
     @Autowired
     private FavoritoRepository repoFav;
 
-    public List<Favorito> obtenerFavoritosPorUsuario(Usuario usuario) {
-        return repoFav.findByUsuario(usuario);
+    public List<Producto> obtenerProductosFavoritosPorUsuario(Usuario usuario) {
+        return repoFav.findProductosByUsuario(usuario);
     }
 
     public Favorito agregarAFavoritos(Usuario usuario, Producto producto) {

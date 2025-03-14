@@ -1,17 +1,18 @@
 package com.example.controllers;
 
+import com.example.controllers.dtos.ProductoDTO;
 import com.example.model.Favorito;
-import com.example.model.Usuario;
 import com.example.model.Producto;
+import com.example.model.Usuario;
+import com.example.security.EcommerceUserDetails;
 import com.example.services.FavoritoService;
-import com.example.services.UsuarioService;
 import com.example.services.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/favoritos")
@@ -21,49 +22,64 @@ public class FavoritoRestController {
     private FavoritoService serFav;
 
     @Autowired
-    private UsuarioService serUsu;
-
-    @Autowired
     private ProductoService serProd;
 
-    @GetMapping("/usuario/{idUsuario}")
-    public ResponseEntity<List<Favorito>> obtenerFavoritosPorUsuario(@PathVariable("idUsuario") Integer idUsuario) {
-        Usuario usuario = serUsu.buscarUsuarioPorId(idUsuario);
-        if (usuario == null) {
-            return ResponseEntity.notFound().build();
+    @GetMapping("/productos")
+    public ResponseEntity<List<ProductoDTO>> obtenerProductosFavoritos(Authentication authentication) {
+        if (authentication == null) {
+            return ResponseEntity.status(401).build();
         }
-        List<Favorito> favoritos = serFav.obtenerFavoritosPorUsuario(usuario);
-        return ResponseEntity.ok(favoritos);
+
+        EcommerceUserDetails userDetails = (EcommerceUserDetails) authentication.getPrincipal();
+        Usuario usuario = userDetails.getUsuario();
+
+        List<ProductoDTO> productosFavoritos = serFav.obtenerProductosFavoritosPorUsuario(usuario)
+                .stream()
+                .map(p -> new ProductoDTO(p.getNombre(), p.getDescripcion(), p.getPrecio(), p.getImagen(),
+                        p.getStock()))
+                .toList();
+
+        return ResponseEntity.ok(productosFavoritos);
     }
 
     @PostMapping("/agregar")
-    public ResponseEntity<Favorito> agregarAFavoritos(@RequestBody Integer idProducto,
-            @RequestParam Integer idUsuario) {
-        Optional<Producto> productoOpt = serProd.mostrarDetalle(idProducto);
-        Usuario usuario = serUsu.buscarUsuarioPorId(idUsuario);
-
-        if (usuario == null || productoOpt.isEmpty()) {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<Favorito> agregarAFavoritos(@RequestParam("productoId") Integer productoId,
+            Authentication authentication) {
+        if (authentication == null) {
+            return ResponseEntity.status(401).build();
         }
 
-        Producto producto = productoOpt.get();
+        EcommerceUserDetails userDetails = (EcommerceUserDetails) authentication.getPrincipal();
+        Usuario usuario = userDetails.getUsuario();
+
+        Producto producto = serProd.mostrarDetalle(productoId).orElse(null);
+        if (producto == null) {
+            return ResponseEntity.status(404).build();
+        }
+
         Favorito favorito = serFav.agregarAFavoritos(usuario, producto);
         if (favorito != null) {
-            return ResponseEntity.ok(favorito);
+            return ResponseEntity.status(201).body(favorito);
+        } else {
+            return ResponseEntity.status(400).build();
         }
-        return ResponseEntity.badRequest().build();
     }
 
     @DeleteMapping("/eliminar")
-    public ResponseEntity<Void> eliminarDeFavoritos(@RequestParam Integer idUsuario, @RequestParam Integer idProducto) {
-        Usuario usuario = serUsu.buscarUsuarioPorId(idUsuario);
-        Optional<Producto> productoOpt = serProd.mostrarDetalle(idProducto);
-
-        if (usuario == null || productoOpt.isEmpty()) {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<Void> eliminarDeFavoritos(@RequestParam("productoId") Integer productoId,
+            Authentication authentication) {
+        if (authentication == null) {
+            return ResponseEntity.status(401).build();
         }
 
-        Producto producto = productoOpt.get();
+        EcommerceUserDetails userDetails = (EcommerceUserDetails) authentication.getPrincipal();
+        Usuario usuario = userDetails.getUsuario();
+
+        Producto producto = serProd.mostrarDetalle(productoId).orElse(null);
+        if (producto == null) {
+            return ResponseEntity.status(404).build();
+        }
+
         serFav.eliminarDeFavoritos(usuario, producto);
         return ResponseEntity.noContent().build();
     }

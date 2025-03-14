@@ -14,8 +14,8 @@ public class DeseadoService {
     @Autowired
     private DeseadoRepository repoDes;
 
-    public List<Deseado> obtenerDeseadosPorUsuario(Usuario usuario) {
-        return repoDes.findByUsuario(usuario);
+    public List<Producto> obtenerDeseadosPorUsuario(Usuario usuario) {
+        return repoDes.obtenerProductosDeseadosPorUsuario(usuario);
     }
 
     public Deseado agregarADeseados(Usuario usuario, Producto producto) {
