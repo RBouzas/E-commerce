@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const BASENAME = "http://localhost:8080";
 
@@ -59,8 +59,8 @@ export const useFetch = ({ url, options }, immediate = true) => {
   useEffect(() => {
     setDataState((prev) => ({ ...prev, request: handleFetch }));
 
-    if (immediate && !dataState.started) handleFetch();
-  }, [immediate, dataState.started, handleFetch]);
+    if (immediate) handleFetch();
+  }, [immediate, handleFetch]);
 
   return dataState;
 };

@@ -3,18 +3,17 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import Modal from "react-bootstrap/Modal";
-import Placeholder from "react-bootstrap/Placeholder";
 import Stack from "react-bootstrap/Stack";
 import Table from "react-bootstrap/Table";
+import { Link } from "react-router-dom";
+import useEliminarProducto from "../client/useEliminarProducto";
 import useListaProductos from "../client/useListaProductos";
+import AccesoRestringido from "../components/AccesoRestringido";
+import Autenticado from "../components/Autenticado";
 import ControlBusqueda from "../components/ControlBusqueda";
 import ControlPaginacion from "../components/ControlPaginacion";
 import Page from "../components/Page";
 import TituloPagina from "../components/TituloPagina";
-import useEliminarProducto from "../client/useEliminarProducto";
-import Autenticado from "../components/Autenticado";
-import AccesoRestringido from "../components/AccesoRestringido";
-import { Link } from "react-router-dom";
 
 const DeleteConfirmation = ({ show, onClose, nombre }) => (
   <Modal show={show} onHide={() => onClose(false)}>
@@ -86,26 +85,10 @@ const FilaProducto = ({ id, nombre, precio, stock, refrescarLista }) => (
 
 const FilaProductoPlaceholder = () => (
   <tr>
-    <td>
-      <Placeholder animation="glow">
-        <Placeholder xs={4} />
-      </Placeholder>
-    </td>
-    <td>
-      <Placeholder animation="glow">
-        <Placeholder xs={4} /> <Placeholder xs={5} /> <Placeholder xs={2} />
-      </Placeholder>
-    </td>
-    <td>
-      <Placeholder animation="glow">
-        <Placeholder xs={3} />
-      </Placeholder>
-    </td>
-    <td>
-      <Placeholder animation="glow">
-        <Placeholder xs={2} />
-      </Placeholder>
-    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
     <td>
       <Stack gap={1} className="justify-content-center" direction="horizontal">
         <Button size="sm" variant="secondary">

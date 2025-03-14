@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Autenticado from "./components/Autenticado";
 import "./index.css";
+import AdminCrearProductoPage from "./pages/AdminCrearProductoPage";
 import AdminDetalleProductoPage from "./pages/AdminDetalleProductoPage";
 import AdminPage from "./pages/AdminPage";
 import AdminProductoPage from "./pages/AdminProductoPage";
@@ -15,7 +16,6 @@ import LoginPage from "./pages/LoginPage";
 import LogoutPage from "./pages/LogoutPage";
 import RegisterPage from "./pages/RegisterPage";
 import reportWebVitals from "./reportWebVitals";
-import AdminCrearProductoPage from "./pages/AdminCrearProductoPage";
 
 const router = createBrowserRouter([
   {

@@ -6,8 +6,8 @@ import Row from "react-bootstrap/Row";
 import Stack from "react-bootstrap/Stack";
 import useBorrarCarrito from "../client/useBorrarCarrito";
 import useCarrito from "../client/useCarrito";
-import Page from "../components/Page";
 import Loading from "../components/Loading";
+import Page from "../components/Page";
 import TituloPagina from "../components/TituloPagina";
 
 const ControlBorrarCarrito = ({ idCarrito }) => {
@@ -21,7 +21,6 @@ const ControlBorrarCarrito = ({ idCarrito }) => {
       </button>
     );
 
-  console.log(error);
   if (error) return <span>Error eliminando producto del carrito</span>;
 
   return <span>Eliminado del carrito</span>;

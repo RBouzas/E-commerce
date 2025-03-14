@@ -5,14 +5,21 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Stack from "react-bootstrap/Stack";
+import AccesoRestringido from "../components/AccesoRestringido";
+import Autenticado from "../components/Autenticado";
 import Page from "../components/Page";
 import TituloPagina from "../components/TituloPagina";
-import Autenticado from "../components/Autenticado";
-import AccesoRestringido from "../components/AccesoRestringido";
 
 const ItemPanel = ({ titulo, descripcion, link, disabled }) => (
-  <Col sm={12} md={6} lg={4} xl={3} xxl={2}>
-    <Card style={{ height: "15vw" }}>
+  <Col
+    className="d-flex align-content-stretch"
+    sm={12}
+    md={6}
+    lg={4}
+    xl={3}
+    xxl={2}
+  >
+    <Card>
       <Card.Body>
         <Card.Title>{titulo}</Card.Title>
         <Card.Text>{descripcion}</Card.Text>
@@ -44,7 +51,7 @@ const AdminPage = () => {
             />
             <ItemPanel
               titulo="Usuarios"
-              descripcion="Controle el acceso a la tienda, cuentas de administración, perfiles de usario..."
+              descripcion="Controle el acceso a la tienda, cuentas de administración, perfiles de usuario..."
               link="#"
               disabled
             />

@@ -1,24 +1,21 @@
-import { useEffect } from "react";
+import { useMemo } from "react";
 import useFetch from "./useFetch";
 
 const useListaProductos = (offset, limit, search) => {
-  const params = new URLSearchParams();
+  const params = useMemo(() => {
+    const params = new URLSearchParams();
 
-  const searchEnabled = search && search.length > 3;
-  if (searchEnabled) params.set("search", search);
-  params.set("offset", offset);
-  if (limit) params.set("limit", limit);
-  const paramsString = params.toString();
+    const searchEnabled = search && search.length > 3;
+    if (searchEnabled) params.set("search", search);
+    params.set("offset", offset);
+    if (limit) params.set("limit", limit);
 
-  const fetchHook = useFetch({ url: `/api/productos?${params}` }, false);
-  const { request } = fetchHook;
+    return params;
+  }, [search, offset, limit]);
 
-  useEffect(() => {
-    request && request();
-    return () => {};
-  }, [request, paramsString]);
+  const url = useMemo(() => `/api/productos?${params}`, [params]);
 
-  return fetchHook;
+  return useFetch({ url });
 };
 
 export default useListaProductos;
