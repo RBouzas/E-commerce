@@ -17,6 +17,7 @@ import LogoutPage from "./pages/LogoutPage";
 import RegisterPage from "./pages/RegisterPage";
 import reportWebVitals from "./reportWebVitals";
 import DeseadosPage from "./pages/DeseadosPage";
+import FavoritosPage from "./pages/FavoritosPage";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: "/deseados",
         element: <DeseadosPage />,
+      },
+      {
+        path: "/favoritos",
+        element: <FavoritosPage />,
       },
       {
         path: "/login",

@@ -20,11 +20,12 @@ public class FavoritoService {
     }
 
     public Favorito agregarAFavoritos(Usuario usuario, Producto producto) {
-        if (!repoFav.existsByUsuarioAndProducto(usuario, producto)) {
-            Favorito favorito = new Favorito(usuario, producto);
-            return repoFav.save(favorito);
+        Favorito favorito = new Favorito(usuario, producto);
+        if (repoFav.existsByUsuarioAndProducto(usuario, producto)) {
+            return favorito;
         }
-        return null;
+
+        return repoFav.save(favorito);
     }
 
     public void eliminarDeFavoritos(Usuario usuario, Producto producto) {

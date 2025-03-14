@@ -38,6 +38,7 @@ const Navigation = () => {
             <NavLink to="/carrito">Carrito</NavLink>
             <Autenticado>
               <NavLink to="/deseados">Deseados</NavLink>
+              <NavLink to="/favoritos">Favoritos</NavLink>
             </Autenticado>
             <Autenticado rol="ADMIN">
               <NavLink to="/admin">Administración</NavLink>

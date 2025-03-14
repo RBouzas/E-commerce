@@ -1,5 +1,6 @@
 package com.example.controllers;
 
+import com.example.controllers.dtos.GuardarFavoritoDTO;
 import com.example.controllers.dtos.ProductoDTO;
 import com.example.model.Favorito;
 import com.example.model.Producto;
@@ -42,7 +43,7 @@ public class FavoritoRestController {
     }
 
     @PostMapping("/agregar")
-    public ResponseEntity<Favorito> agregarAFavoritos(@RequestParam("productoId") Integer productoId,
+    public ResponseEntity<Void> agregarAFavoritos(@RequestBody GuardarFavoritoDTO guardarFavoritoDTO,
             Authentication authentication) {
         if (authentication == null) {
             return ResponseEntity.status(401).build();
@@ -51,21 +52,22 @@ public class FavoritoRestController {
         EcommerceUserDetails userDetails = (EcommerceUserDetails) authentication.getPrincipal();
         Usuario usuario = userDetails.getUsuario();
 
+        Integer productoId = guardarFavoritoDTO.getIdProducto();
         Producto producto = serProd.mostrarDetalle(productoId).orElse(null);
         if (producto == null) {
-            return ResponseEntity.status(404).build();
+            return ResponseEntity.notFound().build();
         }
 
         Favorito favorito = serFav.agregarAFavoritos(usuario, producto);
         if (favorito != null) {
-            return ResponseEntity.status(201).body(favorito);
-        } else {
-            return ResponseEntity.status(400).build();
+            return ResponseEntity.noContent().build();
         }
+
+        return ResponseEntity.internalServerError().build();
     }
 
     @DeleteMapping("/eliminar")
-    public ResponseEntity<Void> eliminarDeFavoritos(@RequestParam("productoId") Integer productoId,
+    public ResponseEntity<Void> eliminarDeFavoritos(@RequestBody GuardarFavoritoDTO guardarFavoritoDTO,
             Authentication authentication) {
         if (authentication == null) {
             return ResponseEntity.status(401).build();
@@ -74,9 +76,10 @@ public class FavoritoRestController {
         EcommerceUserDetails userDetails = (EcommerceUserDetails) authentication.getPrincipal();
         Usuario usuario = userDetails.getUsuario();
 
+        Integer productoId = guardarFavoritoDTO.getIdProducto();
         Producto producto = serProd.mostrarDetalle(productoId).orElse(null);
         if (producto == null) {
-            return ResponseEntity.status(404).build();
+            return ResponseEntity.notFound().build();
         }
 
         serFav.eliminarDeFavoritos(usuario, producto);

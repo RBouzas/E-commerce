@@ -2,43 +2,44 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Stack from "react-bootstrap/Stack";
-import useListaDeseados from "../client/useListaDeseados";
+import useListaFavoritos from "../client/useListaFavoritos";
 import AccesoRestringido from "../components/AccesoRestringido";
 import Autenticado from "../components/Autenticado";
-import ControlBorrarDeseados from "../components/ControlBorrarDeseados";
+import ControlBorrarFavoritos from "../components/ControlBorrarFavoritos";
 import ControlGuardarCarrito from "../components/ControlGuardarCarrito";
 import Loading from "../components/Loading";
 import Page from "../components/Page";
 import TarjetaProducto from "../components/TarjetaProducto";
 import TituloPagina from "../components/TituloPagina";
 
-const ControlesDeseados = ({ idProducto, stock }) => (
+const ControlesFavoritos = ({ idProducto, stock }) => (
   <>
     {stock ? <ControlGuardarCarrito idProducto={idProducto} /> : null}
-    <ControlBorrarDeseados idProducto={idProducto} />
+    <ControlBorrarFavoritos idProducto={idProducto} />
   </>
 );
 
-const ListaDeseados = () => {
-  const { data, loading } = useListaDeseados();
+const ListaFavoritos = () => {
+  const { data, loading } = useListaFavoritos();
 
   return (
     <Container className="d-grid flex-grow-1">
       <Row className="row-gap-2">
         <Loading loading={loading} />
-        {data?.length === 0 && "¡Todavía no hay nada en tu lista de deseados!"}
-        {data?.map((deseado) => (
-          <Col key={deseado.idProducto}>
+        {data?.length === 0 &&
+          "¡Todavía no has marcado ningún producto favorito!"}
+        {data?.map((favorito) => (
+          <Col key={favorito.idProducto}>
             <TarjetaProducto
-              idProducto={deseado.idProducto}
-              nombre={deseado.nombre}
-              imagen={deseado.imagen}
-              precio={deseado.precio}
-              stock={deseado.stock}
+              idProducto={favorito.idProducto}
+              nombre={favorito.nombre}
+              imagen={favorito.imagen}
+              precio={favorito.precio}
+              stock={favorito.stock}
               controles={
-                <ControlesDeseados
-                  idProducto={deseado.idProducto}
-                  stock={deseado.stock}
+                <ControlesFavoritos
+                  idProducto={favorito.idProducto}
+                  stock={favorito.stock}
                 />
               }
             />
@@ -49,17 +50,17 @@ const ListaDeseados = () => {
   );
 };
 
-const DeseadosPage = () => {
+const FavoritosPage = () => {
   return (
     <Page>
       <Autenticado fallback={<AccesoRestringido />}>
         <Stack gap={4}>
-          <TituloPagina>Mi lista de deseados</TituloPagina>
-          <ListaDeseados />
+          <TituloPagina>Mis favoritos</TituloPagina>
+          <ListaFavoritos />
         </Stack>
       </Autenticado>
     </Page>
   );
 };
 
-export default DeseadosPage;
+export default FavoritosPage;

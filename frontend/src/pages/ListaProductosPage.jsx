@@ -7,13 +7,13 @@ import Stack from "react-bootstrap/Stack";
 import Container from "react-bootstrap/esm/Container";
 import useListaProductos from "../client/useListaProductos";
 import ControlBusqueda from "../components/ControlBusqueda";
-import ControlPaginacion from "../components/ControlPaginacion";
-import Page from "../components/Page";
-import TituloPagina from "../components/TituloPagina";
-import TarjetaProducto from "../components/TarjetaProducto";
 import ControlGuardarCarrito from "../components/ControlGuardarCarrito";
 import ControlGuardarDeseados from "../components/ControlGuardarDeseados";
-import Autenticado from "../components/Autenticado";
+import ControlGuardarFavoritos from "../components/ControlGuardarFavoritos";
+import ControlPaginacion from "../components/ControlPaginacion";
+import Page from "../components/Page";
+import TarjetaProducto from "../components/TarjetaProducto";
+import TituloPagina from "../components/TituloPagina";
 
 const ListaItemPlaceholder = () => (
   <Card className="h-100 d-flex">
@@ -39,18 +39,14 @@ const ListaItemPlaceholder = () => (
 );
 
 const ControlesProducto = ({ idProducto, stock }) => (
-  <Stack direction="horizontal" gap={2}>
-    <Card.Link className="flex-grow-1" href={`/productos/${idProducto}`}>
-      Detalles...
-    </Card.Link>
-    <Autenticado>
-      {stock ? (
-        <ControlGuardarCarrito idProducto={idProducto} />
-      ) : (
-        <ControlGuardarDeseados idProducto={idProducto} />
-      )}
-    </Autenticado>
-  </Stack>
+  <>
+    {stock ? (
+      <ControlGuardarCarrito idProducto={idProducto} />
+    ) : (
+      <ControlGuardarDeseados idProducto={idProducto} />
+    )}
+    <ControlGuardarFavoritos idProducto={idProducto} />
+  </>
 );
 
 const ELEMENTOS_POR_PAGINA = 6;

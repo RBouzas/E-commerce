@@ -1,5 +1,6 @@
 import Card from "react-bootstrap/Card";
 import StockStatus from "../components/StockStatus";
+import Stack from "react-bootstrap/Stack";
 
 const TarjetaProducto = ({
   idProducto,
@@ -28,8 +29,13 @@ const TarjetaProducto = ({
         <Card.Text>
           <StockStatus stock={stock} />
         </Card.Text>
+        <Card.Link href={`/productos/${idProducto}`}>Más detalles...</Card.Link>
       </Card.Body>
-      <Card.Footer>{controles}</Card.Footer>
+      <Card.Footer>
+        <Stack className="justify-content-end" direction="horizontal" gap={2}>
+          {controles}
+        </Stack>
+      </Card.Footer>
     </Card>
   );
 };
