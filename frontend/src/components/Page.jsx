@@ -2,8 +2,11 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
 import Autenticado from "./Autenticado";
+
+import logo from "../techheaven.png";
 
 const Navigation = () => {
   const fallback = (
@@ -15,7 +18,10 @@ const Navigation = () => {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="/">Technology Heaven</Navbar.Brand>
+        <Navbar.Brand href="/">
+          <Image width={50} height={50} src={logo} />
+          Technology Heaven
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
