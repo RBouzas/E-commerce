@@ -14,6 +14,7 @@ import TituloPagina from "../components/TituloPagina";
 import useEliminarProducto from "../client/useEliminarProducto";
 import Autenticado from "../components/Autenticado";
 import AccesoRestringido from "../components/AccesoRestringido";
+import { Link } from "react-router-dom";
 
 const DeleteConfirmation = ({ show, onClose, nombre }) => (
   <Modal show={show} onHide={() => onClose(false)}>
@@ -43,9 +44,11 @@ const Acciones = ({ id, nombre, refrescarLista }) => {
 
   return (
     <Stack gap={1} className="justify-content-center" direction="horizontal">
-      <Button size="sm" variant="secondary" title="Editar artículo">
-        <EditIcon className="fs-6" />
-      </Button>
+      <Link to={`/admin/productos/${id}`}>
+        <Button size="sm" variant="secondary" title="Editar artículo">
+          <EditIcon className="fs-6" />
+        </Button>
+      </Link>
       <Button
         size="sm"
         variant="danger"

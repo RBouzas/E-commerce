@@ -1,10 +1,12 @@
+import { useMemo } from "react";
 import useFetch from "./useFetch";
 
 const OPTIONS = { method: "GET" };
 
-const useVerDetalle = (idCarrito) => {
+const useVerDetalle = (idProducto) => {
+  const url = useMemo(() => `/api/productos/${idProducto}`, [idProducto]);
   return useFetch({
-    url: `/api/productos/${idCarrito}`,
+    url,
     options: OPTIONS,
   });
 };
