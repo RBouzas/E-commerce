@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.controllers.dtos.CarritoDTO;
 import com.example.controllers.dtos.GuardarCarritoDto;
 import com.example.model.Carrito;
 import com.example.model.Producto;
@@ -28,20 +29,23 @@ public class CarritoRestController {
     private CarritoService serCarrito;
 
     @GetMapping
-    public List<Carrito> listar(Authentication authentication) {
+    public List<CarritoDTO> listar(Authentication authentication) {
         EcommerceUserDetails usuario = (EcommerceUserDetails) authentication.getPrincipal();
-        return serCarrito.listarCarrito(usuario.getUsuario().getIdUsuario());
+        return serCarrito.listarCarrito(usuario.getUsuario().getIdUsuario())
+                .stream()
+                .map(carrito -> new CarritoDTO(carrito))
+                .toList();
     }
 
     @PostMapping
-    public Carrito guardar(@RequestBody GuardarCarritoDto carritoDto, Authentication authentication) {
+    public CarritoDTO guardar(@RequestBody GuardarCarritoDto carritoDto, Authentication authentication) {
         EcommerceUserDetails usuario = (EcommerceUserDetails) authentication.getPrincipal();
         Carrito carrito = new Carrito();
         carrito.setUsuario(usuario.getUsuario());
         Producto producto = new Producto();
         producto.setIdProducto(carritoDto.getIdProducto());
         carrito.setProducto(producto);
-        return serCarrito.addCarrito(carrito);
+        return new CarritoDTO(serCarrito.addCarrito(carrito));
     }
 
     @DeleteMapping("/{id}")

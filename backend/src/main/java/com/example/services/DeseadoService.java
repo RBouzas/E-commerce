@@ -19,11 +19,15 @@ public class DeseadoService {
     }
 
     public Deseado agregarADeseados(Usuario usuario, Producto producto) {
-        if (producto.getStock() == 0 && !repoDes.existsByUsuarioAndProducto(usuario, producto)) {
-            Deseado deseado = new Deseado(usuario, producto);
-            return repoDes.save(deseado);
+        if (producto.getStock() != 0)
+            return null;
+
+        Deseado deseado = new Deseado(usuario, producto);
+        if (repoDes.existsByUsuarioAndProducto(usuario, producto)) {
+            return deseado;
         }
-        return null;
+
+        return repoDes.save(deseado);
     }
 
     public void eliminarDeDeseados(Usuario usuario, Producto producto) {

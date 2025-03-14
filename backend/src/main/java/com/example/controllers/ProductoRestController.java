@@ -43,17 +43,17 @@ public class ProductoRestController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Producto> mostrar(@PathVariable("id") Integer id) {
-        return serProd.mostrarDetalle(id);
+    public Optional<ProductoDTO> mostrar(@PathVariable("id") Integer id) {
+        return serProd.mostrarDetalle(id).map(producto -> new ProductoDTO(producto));
     }
 
     @PostMapping("/guardar")
-    public Producto guardar(@RequestBody Producto producto) {
-        return serProd.guardar(producto);
+    public ProductoDTO guardar(@RequestBody Producto producto) {
+        return new ProductoDTO((serProd.guardar(producto)));
     }
 
     @PutMapping("/modificar/{id}")
-    public ResponseEntity<Producto> modificar(@RequestBody Producto producto, @PathVariable("id") Integer id) {
+    public ResponseEntity<ProductoDTO> modificar(@RequestBody Producto producto, @PathVariable("id") Integer id) {
         Optional<Producto> productoExistente = serProd.mostrarDetalle(id);
 
         if (productoExistente.isPresent()) {
@@ -65,7 +65,7 @@ public class ProductoRestController {
             prodActualizado.setStock(producto.getStock());
 
             Producto prodGuardado = serProd.guardar(prodActualizado);
-            return ResponseEntity.ok(prodGuardado);
+            return ResponseEntity.ok(new ProductoDTO(prodGuardado));
         } else {
             return ResponseEntity.notFound().build();
         }

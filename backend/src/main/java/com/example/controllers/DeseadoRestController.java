@@ -1,5 +1,6 @@
 package com.example.controllers;
 
+import com.example.controllers.dtos.GuardarDeseadoDTO;
 import com.example.controllers.dtos.ProductoDTO;
 import com.example.model.Deseado;
 import com.example.model.Usuario;
@@ -43,7 +44,8 @@ public class DeseadoRestController {
     }
 
     @PostMapping("/agregar")
-    public ResponseEntity<Deseado> agregarADeseados(@RequestParam Integer idProducto, Authentication authentication) {
+    public ResponseEntity<Void> agregarADeseados(@RequestBody GuardarDeseadoDTO guardarDeseadoDTO,
+            Authentication authentication) {
         if (authentication == null) {
             return ResponseEntity.status(401).build();
         }
@@ -51,9 +53,14 @@ public class DeseadoRestController {
         EcommerceUserDetails userDetails = (EcommerceUserDetails) authentication.getPrincipal();
         Usuario usuario = userDetails.getUsuario();
 
+        Integer idProducto = guardarDeseadoDTO.getIdProducto();
         Optional<Producto> productoOpt = serProd.mostrarDetalle(idProducto);
 
-        if (productoOpt.isEmpty() || productoOpt.get().getStock() <= 0) {
+        if (productoOpt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if (productoOpt.get().getStock() > 0) {
             return ResponseEntity.badRequest().build();
         }
 
@@ -61,14 +68,15 @@ public class DeseadoRestController {
 
         Deseado deseado = serDes.agregarADeseados(usuario, producto);
         if (deseado != null) {
-            return ResponseEntity.ok(deseado);
+            return ResponseEntity.noContent().build();
         }
 
-        return ResponseEntity.status(400).build();
+        return ResponseEntity.internalServerError().build();
     }
 
     @DeleteMapping("/eliminar")
-    public ResponseEntity<Void> eliminarDeDeseados(@RequestParam Integer idProducto, Authentication authentication) {
+    public ResponseEntity<Void> eliminarDeDeseados(@RequestBody GuardarDeseadoDTO guardarDeseadoDTO,
+            Authentication authentication) {
         if (authentication == null) {
             return ResponseEntity.status(401).build();
         }
@@ -76,6 +84,7 @@ public class DeseadoRestController {
         EcommerceUserDetails userDetails = (EcommerceUserDetails) authentication.getPrincipal();
         Usuario usuario = userDetails.getUsuario();
 
+        Integer idProducto = guardarDeseadoDTO.getIdProducto();
         Optional<Producto> productoOpt = serProd.mostrarDetalle(idProducto);
 
         if (productoOpt.isEmpty()) {

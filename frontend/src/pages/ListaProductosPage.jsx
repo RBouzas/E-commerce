@@ -6,41 +6,14 @@ import Row from "react-bootstrap/Row";
 import Stack from "react-bootstrap/Stack";
 import Container from "react-bootstrap/esm/Container";
 import useListaProductos from "../client/useListaProductos";
-import ControlGuardarCarrito from "../components/ControlGuardarCarrito";
+import ControlBusqueda from "../components/ControlBusqueda";
+import ControlPaginacion from "../components/ControlPaginacion";
 import Page from "../components/Page";
 import TituloPagina from "../components/TituloPagina";
-import ControlPaginacion from "../components/ControlPaginacion";
-import ControlBusqueda from "../components/ControlBusqueda";
-
-const ListaItem = ({ idProducto, nombre, imagen, precio }) => {
-  return (
-    <Card className="h-100 d-flex">
-      <Card.Img
-        variant="top"
-        style={{ height: "10vw" }}
-        className="flex-grow-1 object-fit-contain"
-        src={imagen}
-        alt="Imagen del producto"
-      />
-      <Card.Body>
-        <Card.Title title={nombre} className="text-truncate">
-          {nombre}
-        </Card.Title>
-        <Card.Text>
-          <strong>Precio:</strong> {precio}&#8364;
-        </Card.Text>
-      </Card.Body>
-      <Card.Footer>
-        <Stack direction="horizontal" gap={2}>
-          <Card.Link className="flex-grow-1" href={`/productos/${idProducto}`}>
-            Detalles...
-          </Card.Link>
-          <ControlGuardarCarrito idProducto={idProducto} />
-        </Stack>
-      </Card.Footer>
-    </Card>
-  );
-};
+import TarjetaProducto from "../components/TarjetaProducto";
+import ControlGuardarCarrito from "../components/ControlGuardarCarrito";
+import ControlGuardarDeseados from "../components/ControlGuardarDeseados";
+import Autenticado from "../components/Autenticado";
 
 const ListaItemPlaceholder = () => (
   <Card className="h-100 d-flex">
@@ -63,6 +36,21 @@ const ListaItemPlaceholder = () => (
       </Placeholder>
     </Card.Footer>
   </Card>
+);
+
+const ControlesProducto = ({ idProducto, stock }) => (
+  <Stack direction="horizontal" gap={2}>
+    <Card.Link className="flex-grow-1" href={`/productos/${idProducto}`}>
+      Detalles...
+    </Card.Link>
+    <Autenticado>
+      {stock ? (
+        <ControlGuardarCarrito idProducto={idProducto} />
+      ) : (
+        <ControlGuardarDeseados idProducto={idProducto} />
+      )}
+    </Autenticado>
+  </Stack>
 );
 
 const ELEMENTOS_POR_PAGINA = 6;
@@ -96,11 +84,18 @@ const ListaProductos = () => {
             : data &&
               data.productos.map((producto) => (
                 <Col key={producto.idProducto} md={6} lg={4} xl={2}>
-                  <ListaItem
+                  <TarjetaProducto
                     idProducto={producto.idProducto}
                     nombre={producto.nombre}
                     imagen={producto.imagen}
                     precio={producto.precio}
+                    stock={producto.stock}
+                    controles={
+                      <ControlesProducto
+                        idProducto={producto.idProducto}
+                        stock={producto.stock}
+                      />
+                    }
                   />
                 </Col>
               ))}

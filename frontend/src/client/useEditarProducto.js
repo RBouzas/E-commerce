@@ -1,17 +1,11 @@
-import { useMemo } from "react";
 import useFetch from "./useFetch";
 
 const OPTIONS = { method: "PUT" };
 
 const useEditarProducto = (idProducto) => {
-  const url = useMemo(
-    () => `/api/productos/modificar/${idProducto}`,
-    [idProducto]
-  );
-
   return useFetch(
     {
-      url,
+      url: `/api/productos/modificar/${idProducto}`,
       options: OPTIONS,
     },
     false

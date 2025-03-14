@@ -2,14 +2,14 @@ import useFetch from "./useFetch";
 
 const OPTIONS = { method: "DELETE" };
 
-const useEliminarProducto = (id) => {
+const useBorrarDeseado = () => {
   return useFetch(
     {
-      url: `/api/productos/eliminar/${id}`,
+      url: `/api/deseados/eliminar`,
       options: OPTIONS,
     },
     false
   );
 };
 
-export default useEliminarProducto;
+export default useBorrarDeseado;

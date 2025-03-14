@@ -14,7 +14,7 @@ const ControlGuardarCarrito = ({ idProducto }) => {
           disabled={loading}
           onClick={() => request({ body: JSON.stringify({ idProducto }) })}
           title="Añadir al carrito"
-          variant="secondary"
+          variant="primary"
         >
           <AddShoppingCartIcon />
         </Button>

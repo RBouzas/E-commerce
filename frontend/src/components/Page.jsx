@@ -36,7 +36,9 @@ const Navigation = () => {
           <Nav className="me-auto">
             <NavLink to="/productos">Productos</NavLink>
             <NavLink to="/carrito">Carrito</NavLink>
-            <NavLink to="/deseados">Deseados</NavLink>
+            <Autenticado>
+              <NavLink to="/deseados">Deseados</NavLink>
+            </Autenticado>
             <Autenticado rol="ADMIN">
               <NavLink to="/admin">Administración</NavLink>
             </Autenticado>

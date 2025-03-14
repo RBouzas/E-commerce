@@ -6,6 +6,9 @@ const AutenticadoContext = createContext(null);
 const Autenticado = ({ children, fallback, rol }) => {
   const autenticado = useContext(AutenticadoContext);
 
+  // // FIXME: Desarrollo
+  // return children;
+
   if (autenticado === null || autenticado.loading) {
     return null;
   }

@@ -13,9 +13,7 @@ const useListaProductos = (offset, limit, search) => {
     return params;
   }, [search, offset, limit]);
 
-  const url = useMemo(() => `/api/productos?${params}`, [params]);
-
-  return useFetch({ url });
+  return useFetch({ url: `/api/productos?${params}` });
 };
 
 export default useListaProductos;
