@@ -1,12 +1,19 @@
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
+import Image from "react-bootstrap/Image";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
+import { Link } from "react-router-dom";
 import Autenticado from "./Autenticado";
 
 import logo from "../techheaven.png";
+
+const NavLink = ({ to, children }) => (
+  <Link className="text-decoration-none" to={to}>
+    <Nav.Link as="div">{children}</Nav.Link>
+  </Link>
+);
 
 const Navigation = () => {
   const fallback = (
@@ -18,20 +25,23 @@ const Navigation = () => {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="/">
-          <Image width={50} height={50} src={logo} />
-          Technology Heaven
-        </Navbar.Brand>
+        <Link className="text-decoration-none" to="/">
+          <Navbar.Brand as="div">
+            <Image width={50} height={50} src={logo} />
+            Technology Heaven
+          </Navbar.Brand>
+        </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/productos">Productos</Nav.Link>
-            <Nav.Link href="/carrito">Carrito</Nav.Link>
+            <NavLink to="/productos">Productos</NavLink>
+            <NavLink to="/carrito">Carrito</NavLink>
+            <NavLink to="/deseados">Deseados</NavLink>
             <Autenticado rol="ADMIN">
-              <Nav.Link href="/admin">Administración</Nav.Link>
+              <NavLink to="/admin">Administración</NavLink>
             </Autenticado>
             <Autenticado fallback={fallback}>
-              <Nav.Link href="/logout">Logout</Nav.Link>
+              <NavLink to="/logout">Logout</NavLink>
             </Autenticado>
           </Nav>
         </Navbar.Collapse>

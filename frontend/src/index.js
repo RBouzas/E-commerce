@@ -16,6 +16,7 @@ import LoginPage from "./pages/LoginPage";
 import LogoutPage from "./pages/LogoutPage";
 import RegisterPage from "./pages/RegisterPage";
 import reportWebVitals from "./reportWebVitals";
+import DeseadosPage from "./pages/DeseadosPage";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: "/carrito",
         element: <CarritoPage />,
+      },
+      {
+        path: "/deseados",
+        element: <DeseadosPage />,
       },
       {
         path: "/login",
