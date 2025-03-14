@@ -35,8 +35,7 @@ public class FavoritoRestController {
 
         List<ProductoDTO> productosFavoritos = serFav.obtenerProductosFavoritosPorUsuario(usuario)
                 .stream()
-                .map(p -> new ProductoDTO(p.getNombre(), p.getDescripcion(), p.getPrecio(), p.getImagen(),
-                        p.getStock()))
+                .map(producto -> new ProductoDTO(producto))
                 .toList();
 
         return ResponseEntity.ok(productosFavoritos);

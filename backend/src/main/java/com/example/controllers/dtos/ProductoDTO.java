@@ -3,6 +3,7 @@ package com.example.controllers.dtos;
 import com.example.model.Producto;
 
 public class ProductoDTO {
+    private Integer idProducto;
     private String nombre;
     private String descripcion;
     private float precio;
@@ -12,7 +13,9 @@ public class ProductoDTO {
     public ProductoDTO() {
     }
 
-    public ProductoDTO(String nombre, String descripcion, float precio, String imagen, Integer stock) {
+    public ProductoDTO(Integer idProducto, String nombre, String descripcion, float precio, String imagen,
+            Integer stock) {
+        this.idProducto = idProducto;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
@@ -21,11 +24,20 @@ public class ProductoDTO {
     }
 
     public ProductoDTO(Producto producto) {
+        this.idProducto = producto.getIdProducto();
         this.nombre = producto.getNombre();
         this.descripcion = producto.getDescripcion();
         this.precio = producto.getPrecio();
         this.imagen = producto.getImagen();
-        this.descripcion = producto.getDescripcion();
+        this.stock = producto.getStock();
+    }
+
+    public Integer getIdProducto() {
+        return idProducto;
+    }
+
+    public void setIdProducto(Integer idProducto) {
+        this.idProducto = idProducto;
     }
 
     public String getNombre() {

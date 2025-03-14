@@ -36,12 +36,7 @@ public class DeseadoRestController {
         Usuario usuario = userDetails.getUsuario();
 
         List<ProductoDTO> productosDeseados = serDes.obtenerDeseadosPorUsuario(usuario).stream()
-                .map(producto -> new ProductoDTO(
-                        producto.getNombre(),
-                        producto.getDescripcion(),
-                        producto.getPrecio(),
-                        producto.getImagen(),
-                        producto.getStock()))
+                .map(producto -> new ProductoDTO(producto))
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(productosDeseados);
