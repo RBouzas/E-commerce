@@ -43,7 +43,7 @@ const AdminPage = () => {
           <Row>
             <TituloPagina>Panel de control</TituloPagina>
           </Row>
-          <Row className="row-gap-1">
+          <Row className="row-gap-2">
             <ItemPanel
               titulo="Inventario"
               descripcion="Cree o modifique productos a la venta, stocks, precios..."

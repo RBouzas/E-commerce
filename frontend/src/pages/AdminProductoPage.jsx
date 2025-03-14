@@ -119,6 +119,9 @@ const TablaProductos = () => {
 
   return (
     <Stack gap={4}>
+      <Link to="/admin/productos/new">
+        <Button>Nuevo producto</Button>
+      </Link>
       <ControlBusqueda
         busqueda={textoBusqueda}
         onCambioTextoBusqueda={(texto) => {
