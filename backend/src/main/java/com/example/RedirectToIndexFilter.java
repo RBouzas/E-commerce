@@ -1,6 +1,7 @@
 package com.example;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,9 @@ import jakarta.servlet.http.HttpServletRequest;
 @Component
 public class RedirectToIndexFilter implements Filter {
 
+    private List<String> notForwarded = List.of("/api", "/static", "/images", "/favicon", "/apple-touch-icon.png",
+            "/site.webmanifest");
+
     @Override
     public void doFilter(ServletRequest request,
             ServletResponse response,
@@ -25,17 +29,7 @@ public class RedirectToIndexFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         String requestURI = req.getRequestURI();
 
-        if (requestURI.startsWith("/api")) {
-            chain.doFilter(request, response);
-            return;
-        }
-
-        if (requestURI.startsWith("/static")) {
-            chain.doFilter(request, response);
-            return;
-        }
-
-        if (requestURI.startsWith("/images")) {
+        if (notForwarded.stream().anyMatch(prefix -> requestURI.startsWith(prefix))) {
             chain.doFilter(request, response);
             return;
         }
