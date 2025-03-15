@@ -121,7 +121,7 @@ const TablaProductos = () => {
   return (
     <Stack gap={4}>
       <Stack className="align-items-end">
-        <Link to="/admin/productos/new">
+        <Link to="/admin/productos/nuevo">
           <Button>
             <AddIcon />
             Nuevo producto

@@ -22,7 +22,7 @@ public class Producto {
     private String nombre;
     @Lob
     private String descripcion;
-    private float precio;
+    private double precio;
     private String imagen;
     private Integer stock;
 
@@ -59,11 +59,11 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public float getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(float precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 

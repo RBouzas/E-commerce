@@ -6,14 +6,14 @@ public class ProductoDTO {
     private Integer idProducto;
     private String nombre;
     private String descripcion;
-    private float precio;
+    private double precio;
     private String imagen;
     private Integer stock;
 
     public ProductoDTO() {
     }
 
-    public ProductoDTO(Integer idProducto, String nombre, String descripcion, float precio, String imagen,
+    public ProductoDTO(Integer idProducto, String nombre, String descripcion, double precio, String imagen,
             Integer stock) {
         this.idProducto = idProducto;
         this.nombre = nombre;
@@ -56,11 +56,11 @@ public class ProductoDTO {
         this.descripcion = descripcion;
     }
 
-    public float getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(float precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 

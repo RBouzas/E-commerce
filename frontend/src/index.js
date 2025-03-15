@@ -69,12 +69,12 @@ const router = createBrowserRouter([
         element: <AdminProductoPage />,
       },
       {
-        path: "/admin/productos/:idProducto",
-        element: <AdminDetalleProductoPage />,
-      },
-      {
         path: "/admin/productos/nuevo",
         element: <AdminCrearProductoPage />,
+      },
+      {
+        path: "/admin/productos/:idProducto",
+        element: <AdminDetalleProductoPage />,
       },
       {
         path: "/registro",
