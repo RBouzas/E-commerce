@@ -54,9 +54,10 @@ const AdminCrearProductoPage = () => {
             const formData = new FormData(event.target);
             const data = Object.fromEntries(formData);
 
-            requestCrear({ body: JSON.stringify(data) }).then(() =>
-              setShowSuccess(true)
-            );
+            requestCrear({ body: JSON.stringify(data) }).then(() => {
+              setShowSuccess(true);
+              event.target.reset();
+            });
             event.preventDefault();
           }}
         >
@@ -122,7 +123,7 @@ const AdminCrearProductoPage = () => {
                           <Form.Control
                             name="precio"
                             id="admin-producto-precio"
-                            placeholder="12.49"
+                            placeholder="0.0"
                             value={precio}
                             required
                             onChange={(event) => setPrecio(event.target.value)}
@@ -140,7 +141,7 @@ const AdminCrearProductoPage = () => {
                         <Form.Control
                           name="stock"
                           id="admin-producto-stock"
-                          placeholder="50"
+                          placeholder="0"
                           value={stock}
                           required
                           onChange={(event) => setStock(event.target.value)}

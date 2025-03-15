@@ -7,14 +7,11 @@ import Stack from "react-bootstrap/Stack";
 import Container from "react-bootstrap/esm/Container";
 import useListaProductos from "../client/useListaProductos";
 import ControlBusqueda from "../components/ControlBusqueda";
-import ControlGuardarCarrito from "../components/ControlGuardarCarrito";
-import ControlGuardarDeseados from "../components/ControlGuardarDeseados";
-import ControlGuardarFavoritos from "../components/ControlGuardarFavoritos";
 import ControlPaginacion from "../components/ControlPaginacion";
+import ControlesProducto from "../components/ControlesProducto";
 import Page from "../components/Page";
 import TarjetaProducto from "../components/TarjetaProducto";
 import TituloPagina from "../components/TituloPagina";
-import ControlesProducto from "../components/ControlesProducto";
 
 const ListaItemPlaceholder = () => (
   <Card className="h-100 d-flex">
@@ -101,7 +98,7 @@ const ListaProductos = () => {
 const ListaProductosPage = () => {
   return (
     <Page>
-      <Stack gap={4}>
+      <Stack className="flex-grow-0" gap={4}>
         <TituloPagina>Lista de productos</TituloPagina>
         <ListaProductos />
       </Stack>

@@ -1,23 +1,23 @@
-import "bootstrap/dist/css/bootstrap.min.css";
+import "./bootstrap.css";
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Autenticado from "./components/Autenticado";
-import "./index.css";
 import AdminCrearProductoPage from "./pages/AdminCrearProductoPage";
 import AdminDetalleProductoPage from "./pages/AdminDetalleProductoPage";
 import AdminPage from "./pages/AdminPage";
 import AdminProductoPage from "./pages/AdminProductoPage";
 import CarritoPage from "./pages/CarritoPage";
+import DeseadosPage from "./pages/DeseadosPage";
 import DetalleProductoPage from "./pages/DetalleProductoPage";
+import FavoritosPage from "./pages/FavoritosPage";
 import HomePage from "./pages/HomePage";
 import ListaProductosPage from "./pages/ListaProductosPage";
 import LoginPage from "./pages/LoginPage";
 import LogoutPage from "./pages/LogoutPage";
 import RegisterPage from "./pages/RegisterPage";
 import reportWebVitals from "./reportWebVitals";
-import DeseadosPage from "./pages/DeseadosPage";
-import FavoritosPage from "./pages/FavoritosPage";
 
 const router = createBrowserRouter([
   {

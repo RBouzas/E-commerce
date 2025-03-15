@@ -145,7 +145,7 @@ const AdminDetalleProductoPage = () => {
                             <Form.Control
                               name="precio"
                               id="admin-producto-precio"
-                              placeholder="12.49"
+                              placeholder="0.0"
                               value={precio}
                               required
                               onChange={(event) =>
@@ -165,7 +165,7 @@ const AdminDetalleProductoPage = () => {
                           <Form.Control
                             name="stock"
                             id="admin-producto-stock"
-                            placeholder="50"
+                            placeholder="0"
                             value={stock}
                             required
                             onChange={(event) => setStock(event.target.value)}

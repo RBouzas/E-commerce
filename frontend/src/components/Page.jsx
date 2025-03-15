@@ -23,7 +23,7 @@ const Navigation = () => {
     </>
   );
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg" className="bg-primary" data-bs-theme="dark">
       <Container>
         <Link className="text-decoration-none" to="/">
           <Navbar.Brand as="div">
@@ -66,15 +66,21 @@ const Footer = () => {
 
 const Page = ({ children }) => {
   return (
-    <Container className="d-flex flex-column min-vh-100 gap-4">
+    <Container fluid className="d-flex flex-column min-vh-100 p-0 gap-4">
       <Row>
         <Col>
           <Navigation />
         </Col>
       </Row>
-      <Row className="flex-grow-1">{children}</Row>
+      <Row className="flex-grow-1">
+        <Col>
+          <Container>{children}</Container>
+        </Col>
+      </Row>
       <Row>
-        <Footer />
+        <Col>
+          <Footer />
+        </Col>
       </Row>
     </Container>
   );

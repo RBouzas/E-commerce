@@ -12,6 +12,7 @@ const DetalleProducto = ({
   descripcion,
   imagen,
   precio,
+  stock,
 }) => {
   return (
     <div>
@@ -26,7 +27,7 @@ const DetalleProducto = ({
           {precio}&#8364;
         </div>
         <Stack gap={2} direction="horizontal">
-          <ControlesProducto />
+          <ControlesProducto idProducto={idProducto} stock={stock} />
         </Stack>
       </div>
     </div>
@@ -51,6 +52,7 @@ const DetalleProductoPage = () => {
               descripcion={producto.descripcion}
               imagen={producto.imagen}
               precio={producto.precio}
+              stock={producto.stock}
             />
           )}
         </div>
