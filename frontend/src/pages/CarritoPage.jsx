@@ -51,7 +51,7 @@ const PrecioTotal = ({ carrito }) => {
       .reduce((accum, elemento) => accum + elemento, 0);
   }, [carrito]);
 
-  return <div>Total: {total}&#8364;</div>;
+  return <div>Total: {total?.toFixed(2)}&#8364;</div>;
 };
 
 const CarritoPage = () => {

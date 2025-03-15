@@ -14,6 +14,7 @@ import ControlPaginacion from "../components/ControlPaginacion";
 import Page from "../components/Page";
 import TarjetaProducto from "../components/TarjetaProducto";
 import TituloPagina from "../components/TituloPagina";
+import ControlesProducto from "../components/ControlesProducto";
 
 const ListaItemPlaceholder = () => (
   <Card className="h-100 d-flex">
@@ -36,17 +37,6 @@ const ListaItemPlaceholder = () => (
       </Placeholder>
     </Card.Footer>
   </Card>
-);
-
-const ControlesProducto = ({ idProducto, stock }) => (
-  <>
-    {stock ? (
-      <ControlGuardarCarrito idProducto={idProducto} />
-    ) : (
-      <ControlGuardarDeseados idProducto={idProducto} />
-    )}
-    <ControlGuardarFavoritos idProducto={idProducto} />
-  </>
 );
 
 const ELEMENTOS_POR_PAGINA = 6;

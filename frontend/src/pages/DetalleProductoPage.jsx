@@ -1,8 +1,9 @@
+import Stack from "react-bootstrap/Stack";
 import { useParams } from "react-router-dom";
 import useVerDetalle from "../client/useVerDetalle";
-import Page from "../components/Page";
-import ControlGuardarCarrito from "../components/ControlGuardarCarrito";
+import ControlesProducto from "../components/ControlesProducto";
 import Loading from "../components/Loading";
+import Page from "../components/Page";
 import TituloPagina from "../components/TituloPagina";
 
 const DetalleProducto = ({
@@ -24,9 +25,9 @@ const DetalleProducto = ({
           <strong>Precio: </strong>
           {precio}&#8364;
         </div>
-        <div>
-          <ControlGuardarCarrito idProducto={idProducto} />
-        </div>
+        <Stack gap={2} direction="horizontal">
+          <ControlesProducto />
+        </Stack>
       </div>
     </div>
   );
