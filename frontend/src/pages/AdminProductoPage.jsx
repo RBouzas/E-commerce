@@ -1,3 +1,4 @@
+import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { useState } from "react";
@@ -119,9 +120,14 @@ const TablaProductos = () => {
 
   return (
     <Stack gap={4}>
-      <Link to="/admin/productos/new">
-        <Button>Nuevo producto</Button>
-      </Link>
+      <Stack className="align-items-end">
+        <Link to="/admin/productos/new">
+          <Button>
+            <AddIcon />
+            Nuevo producto
+          </Button>
+        </Link>
+      </Stack>
       <ControlBusqueda
         busqueda={textoBusqueda}
         onCambioTextoBusqueda={(texto) => {
