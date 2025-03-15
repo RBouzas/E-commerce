@@ -2,6 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import Page from "../components/Page";
 import Stack from "react-bootstrap/Stack";
 import TituloPagina from "../components/TituloPagina";
+import Button from "react-bootstrap/Button";
 
 const LoginPage = () => {
   const [searchParams] = useSearchParams();
@@ -10,15 +11,29 @@ const LoginPage = () => {
   const registrado =
     searchParams.has("registrado") &&
     searchParams.get("registrado") !== "false";
+  const confirmado =
+    searchParams.has("confirmado") &&
+    searchParams.get("confirmado") !== "false";
 
   return (
     <Page>
       <Stack gap={2} style={{ maxWidth: "50%" }} className="m-auto">
         <TituloPagina>Inicia sesión</TituloPagina>
         {registrado && (
-          <div>
-            Ha completado el registro. A continuación verifique su cuenta para
-            poder iniciar sesión.
+          <div className="text-success">
+            Ha completado el registro. Siga las instrucciones recibidas por
+            correo electrónico para confirmar su cuenta y después inicie sesión.
+          </div>
+        )}
+        {confirmado && (
+          <div className="text-success">
+            Su correo electrónico ha sido verificado. Ya puede iniciar sesión.
+          </div>
+        )}
+        {loginError && (
+          <div className="text-danger">
+            El usuario o la contraseña son incorrectos, o no ha verificado su
+            cuenta.
           </div>
         )}
         <form action="http://localhost:8080/api/performLogin" method="POST">
@@ -35,13 +50,9 @@ const LoginPage = () => {
               name="password"
               id="password"
             />
-            <input type="submit" name="login" value="Iniciar sesión" />
-            {loginError && (
-              <div>
-                El usuario o la contraseña son incorrectos, o no ha verificado
-                su cuenta.
-              </div>
-            )}
+            <Button type="submit" name="login">
+              Iniciar sesión
+            </Button>
           </Stack>
         </form>
       </Stack>

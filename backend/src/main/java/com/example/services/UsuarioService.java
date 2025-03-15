@@ -58,7 +58,7 @@ public class UsuarioService {
     public String verificarUsuario(String token) {
         Optional<VerificationToken> tokenOpt = repoToken.findByToken(token);
         if (tokenOpt.isEmpty() || tokenOpt.get().isExpired()) {
-            return "Token inválido o expirado.";
+            throw new IllegalStateException("Token inválido o expirado.");
         }
 
         VerificationToken verificationToken = tokenOpt.get();

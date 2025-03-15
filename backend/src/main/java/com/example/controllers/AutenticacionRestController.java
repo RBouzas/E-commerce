@@ -1,7 +1,11 @@
 package com.example.controllers;
 
+import java.net.URI;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,7 +59,10 @@ public class AutenticacionRestController {
 
     @GetMapping("/verificar")
     @ResponseStatus(HttpStatus.OK)
-    public String verificarCuenta(@RequestParam("token") String token) {
-        return serUsu.verificarUsuario(token);
+    public ResponseEntity<String> verificarCuenta(@RequestParam("token") String token) {
+        serUsu.verificarUsuario(token);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(URI.create("/login?confirmado=true"));
+        return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
 }

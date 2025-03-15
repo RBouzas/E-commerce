@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useRegistrarUsuario from "../client/useRegistrarUsuario";
 import Page from "../components/Page";
 import TituloPagina from "../components/TituloPagina";
+import Button from "react-bootstrap/Button";
 
 const RegisterPage = () => {
   const { request } = useRegistrarUsuario();
@@ -55,7 +56,9 @@ const RegisterPage = () => {
               onChange={(event) => setContrasenha(event.target.value)}
               required
             />
-            <input type="submit" name="register" value="Registrarse" />
+            <Button type="submit" name="register">
+              Registrarse
+            </Button>
           </Stack>
         </form>
       </Stack>
