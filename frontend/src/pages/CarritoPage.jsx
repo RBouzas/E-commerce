@@ -10,6 +10,7 @@ import Loading from "../components/Loading";
 import Page from "../components/Page";
 import TituloPagina from "../components/TituloPagina";
 import Button from "react-bootstrap/Button";
+import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 
 const ControlBorrarCarrito = ({ idCarrito, refrescar }) => {
   const { done, error, loading, request } = useBorrarCarrito(idCarrito);
@@ -69,6 +70,12 @@ const CarritoPage = () => {
               ))}
           </Container>
           <PrecioTotal carrito={carrito} />
+          <form action="/api/carrito/checkout" method="POST">
+            <Button type="submit">
+              <ShoppingCartCheckoutIcon />
+              Pagar
+            </Button>
+          </form>
         </Stack>
       </Loading>
     </Page>
