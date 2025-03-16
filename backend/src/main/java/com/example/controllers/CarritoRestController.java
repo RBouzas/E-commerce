@@ -24,11 +24,8 @@ import com.example.model.Producto;
 import com.example.security.EcommerceUserDetails;
 import com.example.services.CarritoService;
 import com.stripe.exception.StripeException;
-import com.stripe.model.Price;
 import com.stripe.model.checkout.Session;
-import com.stripe.param.PriceCreateParams;
 import com.stripe.param.checkout.SessionCreateParams;
-import com.stripe.Stripe;
 
 @RestController
 @RequestMapping(value = "/api/carrito")
@@ -75,8 +72,8 @@ public class CarritoRestController {
 
         var sessionBuilder = SessionCreateParams.builder()
                 .setMode(SessionCreateParams.Mode.PAYMENT)
-                .setSuccessUrl(REDIRECT_DOMAIN + "carrito?success=true")
-                .setCancelUrl(REDIRECT_DOMAIN + "carrito?canceled=true");
+                .setSuccessUrl(REDIRECT_DOMAIN + "/carrito?success=true")
+                .setCancelUrl(REDIRECT_DOMAIN + "/carrito?canceled=true");
 
         serCarrito.listarCarrito(usuario.getUsuario().getIdUsuario())
                 .stream()
