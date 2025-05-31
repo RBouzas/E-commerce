@@ -17,7 +17,7 @@ const Carrusel = () => {
   return (
     <Loading loading={!done}>
       <section>
-        <h2 className="text-center mb-4">¡Destacados para tí!</h2>
+        <h2 className="text-center mb-4">¡Destacados para ti!</h2>
         <Container>
           <Row>
             {data?.productos
