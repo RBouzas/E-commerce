@@ -1,10 +1,10 @@
-import { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Placeholder from "react-bootstrap/Placeholder";
 import Row from "react-bootstrap/Row";
 import Stack from "react-bootstrap/Stack";
 import Container from "react-bootstrap/esm/Container";
+import { useSearchParams } from "react-router-dom";
 import useListaProductos from "../client/useListaProductos";
 import ControlBusqueda from "../components/ControlBusqueda";
 import ControlPaginacion from "../components/ControlPaginacion";
@@ -39,8 +39,21 @@ const ListaItemPlaceholder = () => (
 const ELEMENTOS_POR_PAGINA = 6;
 
 const ListaProductos = () => {
-  const [pagina, setPagina] = useState(1);
-  const [textoBusqueda, setTextoBusqueda] = useState("");
+  const [search, setSearch] = useSearchParams();
+  const pagina = Math.max(1, parseInt(search.get("page") ?? "1"));
+  const textoBusqueda = search.get("search") ?? "";
+
+  const setPagina = (pagina) => {
+    search.set("page", pagina);
+    setSearch(search);
+  };
+
+  const setTextoBusqueda = (textoBusqueda) => {
+    if (textoBusqueda === "") search.delete("search");
+    else search.set("search", textoBusqueda);
+    setSearch(search);
+  };
+
   const { data, loading: loadingListaProductos } = useListaProductos(
     ELEMENTOS_POR_PAGINA * (pagina - 1),
     ELEMENTOS_POR_PAGINA,
@@ -84,7 +97,7 @@ const ListaProductos = () => {
               ))}
         </Row>
       </Container>
-      {data && (
+      {data && data?.productos?.length > 0 && (
         <ControlPaginacion
           pagina={pagina}
           totalPaginas={data.paginacion.totalPaginas}

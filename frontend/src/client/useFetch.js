@@ -57,7 +57,7 @@ export const useFetch = ({ url, options }, immediate = true) => {
         }));
       }
     },
-    [url, options, setDataState]
+    [url, options, setDataState, navigate]
   );
 
   useEffect(() => {
