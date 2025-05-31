@@ -61,6 +61,13 @@ public class CarritoRestController {
         serCarrito.borrarCarrito(id, usuario.getUsuario());
     }
 
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void borrarTodo(Authentication authentication) {
+        EcommerceUserDetails usuario = (EcommerceUserDetails) authentication.getPrincipal();
+        serCarrito.borrarCarrito(usuario.getUsuario());
+    }
+
     // FIXME: Añadir una clave de configuración para el dominio de la aplicación
     static private String REDIRECT_DOMAIN = "http://localhost:8080";
 
@@ -72,8 +79,8 @@ public class CarritoRestController {
 
         var sessionBuilder = SessionCreateParams.builder()
                 .setMode(SessionCreateParams.Mode.PAYMENT)
-                .setSuccessUrl(REDIRECT_DOMAIN + "/carrito?success=true")
-                .setCancelUrl(REDIRECT_DOMAIN + "/carrito?canceled=true");
+                .setSuccessUrl(REDIRECT_DOMAIN + "/?checkout=success")
+                .setCancelUrl(REDIRECT_DOMAIN + "/?checkout=canceled");
 
         serCarrito.listarCarrito(usuario.getUsuario().getIdUsuario())
                 .stream()

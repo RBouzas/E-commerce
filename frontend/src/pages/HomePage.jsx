@@ -1,11 +1,51 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
+import Toast from "react-bootstrap/Toast";
+import ToastContainer from "react-bootstrap/ToastContainer";
 import Container from "react-bootstrap/esm/Container";
+import { useSearchParams } from "react-router-dom";
+import useBorrarCarrito from "../client/useBorrarCarrito";
 import useListaProductos from "../client/useListaProductos";
-import Page from "../components/Page";
 import Loading from "../components/Loading";
+import Page from "../components/Page";
+
+const CheckoutSuccessToast = ({ show, onHide }) => {
+  return (
+    <Toast
+      onClose={() => onHide()}
+      show={show}
+      delay={3000}
+      autohide
+      bg="success"
+    >
+      <Toast.Header>
+        <strong className="me-auto">¡Gracias por su compra!</strong>
+      </Toast.Header>
+      <Toast.Body>
+        Su pedido se ha realizado correctamente y lo recibirá en unos días.
+      </Toast.Body>
+    </Toast>
+  );
+};
+
+const CheckoutCanceledToast = ({ show, onHide }) => {
+  return (
+    <Toast
+      onClose={() => onHide()}
+      show={show}
+      delay={3000}
+      autohide
+      bg="danger"
+    >
+      <Toast.Header>
+        <strong className="me-auto">¡Error!</strong>
+      </Toast.Header>
+      <Toast.Body>Su pedido no se ha podido completar.</Toast.Body>
+    </Toast>
+  );
+};
 
 const Carrusel = () => {
   const { done, data, request } = useListaProductos(0, 100);
@@ -38,10 +78,37 @@ const Carrusel = () => {
 };
 
 const HomePage = () => {
+  const [search] = useSearchParams();
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showCanceled, setShowCanceled] = useState(false);
+
+  const { request: borrarCarrito } = useBorrarCarrito();
+  useEffect(() => {
+    const checkout = search.get("checkout");
+    if (checkout === null) return;
+    if (checkout === "success" && borrarCarrito) {
+      borrarCarrito();
+      setShowSuccess(true);
+    }
+    if (checkout === "canceled") {
+      setShowCanceled(true);
+    }
+  }, [search, borrarCarrito, setShowSuccess, setShowCanceled]);
+
   return (
     <Page>
       <Container className="my-auto">
         <main>
+          <ToastContainer className="p-3" position="top-end">
+            <CheckoutSuccessToast
+              show={showSuccess}
+              onHide={() => setShowSuccess(false)}
+            />
+            <CheckoutCanceledToast
+              show={showCanceled}
+              onHide={() => setShowCanceled(false)}
+            />
+          </ToastContainer>
           <Carrusel />
           <section className="mt-5">
             <p>

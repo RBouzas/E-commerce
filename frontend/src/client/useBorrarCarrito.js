@@ -5,7 +5,8 @@ const OPTIONS = { method: "DELETE" };
 const useBorrarCarrito = (idCarrito) => {
   return useFetch(
     {
-      url: `/api/carrito/${idCarrito}`,
+      url:
+        idCarrito === undefined ? "/api/carrito" : `/api/carrito/${idCarrito}`,
       options: OPTIONS,
     },
     false

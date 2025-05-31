@@ -25,6 +25,10 @@ public class CarritoService {
         return repoCarrito.save(carrito);
     }
 
+    public void borrarCarrito(Usuario usuario) {
+        repoCarrito.deleteAllByUsuario_idUsuario(usuario.getIdUsuario());
+    }
+
     public void borrarCarrito(Integer id, Usuario usuario) {
         Carrito carrito = repoCarrito.findById(id).orElse(null);
         if (carrito == null) {
