@@ -1,8 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const BASENAME = "http://localhost:8080";
 
 export const useFetch = ({ url, options }, immediate = true) => {
+  const navigate = useNavigate();
+
   const [dataState, setDataState] = useState({
     data: null,
     loading: immediate,
@@ -30,6 +33,7 @@ export const useFetch = ({ url, options }, immediate = true) => {
           ...callOptions,
         });
 
+        if (response.status === 401) navigate("/login");
         if (!response.ok) throw new Error(response.statusText);
 
         const dataApi = response.status === 204 ? null : await response.json();
