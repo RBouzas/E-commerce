@@ -1,6 +1,6 @@
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import FilterAltOff from "@mui/icons-material/FilterAltOff";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
@@ -97,29 +97,42 @@ const ListaProductos = () => {
     setSearch(search);
   };
 
+  useEffect(() => {
+    if (!search.has("page")) setPagina(1);
+  }, [search, setPagina]);
+
   const setTextoBusqueda = (textoBusqueda) => {
     if (textoBusqueda === "") search.delete("search");
     else search.set("search", textoBusqueda);
     setSearch(search);
   };
 
-  const setMinimo = (minimo) => {
-    if (!minimo || minimo === "") search.delete("minimum");
-    else search.set("minimum", minimo);
-    setSearch(search);
-  };
+  const setMinimo = useCallback(
+    (minimo) => {
+      if (!minimo || minimo === "") search.delete("minimum");
+      else search.set("minimum", minimo);
+      setSearch(search);
+    },
+    [search, setSearch]
+  );
 
-  const setMaximo = (maximo) => {
-    if (!maximo || maximo === "") search.delete("maximum");
-    else search.set("maximum", maximo);
-    setSearch(search);
-  };
+  const setMaximo = useCallback(
+    (maximo) => {
+      if (!maximo || maximo === "") search.delete("maximum");
+      else search.set("maximum", maximo);
+      setSearch(search);
+    },
+    [search, setSearch]
+  );
 
-  const setDisponible = (disponible) => {
-    if (!disponible || disponible === "") search.delete("available");
-    else search.set("available", disponible);
-    setSearch(search);
-  };
+  const setDisponible = useCallback(
+    (disponible) => {
+      if (!disponible || disponible === "") search.delete("available");
+      else search.set("available", disponible);
+      setSearch(search);
+    },
+    [search, setSearch]
+  );
 
   const { data, loading: loadingListaProductos } = useListaProductos(
     ELEMENTOS_POR_PAGINA * (pagina - 1),
@@ -136,7 +149,7 @@ const ListaProductos = () => {
     setMinimo(null);
     setMaximo(null);
     setDisponible(null);
-  });
+  }, [setMinimo, setMaximo, setDisponible]);
 
   return (
     <>

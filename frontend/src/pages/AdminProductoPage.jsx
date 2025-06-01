@@ -1,12 +1,12 @@
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import Modal from "react-bootstrap/Modal";
 import Stack from "react-bootstrap/Stack";
 import Table from "react-bootstrap/Table";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import useEliminarProducto from "../client/useEliminarProducto";
 import useListaProductos from "../client/useListaProductos";
 import AccesoRestringido from "../components/AccesoRestringido";
@@ -106,7 +106,8 @@ const FilaProductoPlaceholder = () => (
 const ELEMENTOS_POR_PAGINA = 10;
 
 const TablaProductos = () => {
-  const [pagina, setPagina] = useState(1);
+  const [search, setSearch] = useSearchParams();
+  const pagina = Math.max(1, parseInt(search.get("page") ?? "1"));
   const [textoBusqueda, setTextoBusqueda] = useState("");
   const {
     data,
@@ -117,6 +118,15 @@ const TablaProductos = () => {
     ELEMENTOS_POR_PAGINA,
     textoBusqueda
   );
+
+  const setPagina = (pagina) => {
+    search.set("page", pagina);
+    setSearch(search);
+  };
+
+  useEffect(() => {
+    if (!search.has("page")) setPagina(1);
+  }, [search, setPagina]);
 
   return (
     <Stack gap={4}>
@@ -162,7 +172,7 @@ const TablaProductos = () => {
               ))}
         </tbody>
       </Table>
-      {data && (
+      {data && data?.productos?.length > 0 && (
         <ControlPaginacion
           pagina={pagina}
           totalPaginas={data.paginacion.totalPaginas}
