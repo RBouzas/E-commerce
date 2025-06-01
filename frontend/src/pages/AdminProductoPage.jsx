@@ -1,7 +1,7 @@
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import Modal from "react-bootstrap/Modal";
 import Stack from "react-bootstrap/Stack";
@@ -119,10 +119,13 @@ const TablaProductos = () => {
     textoBusqueda
   );
 
-  const setPagina = (pagina) => {
-    search.set("page", pagina);
-    setSearch(search);
-  };
+  const setPagina = useCallback(
+    (pagina) => {
+      search.set("page", pagina);
+      setSearch(search);
+    },
+    [search, setSearch]
+  );
 
   useEffect(() => {
     if (!search.has("page")) setPagina(1);

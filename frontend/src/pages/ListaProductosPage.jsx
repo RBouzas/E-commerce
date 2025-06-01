@@ -92,10 +92,13 @@ const ListaProductos = () => {
   const maximo = search.get("maximum");
   const disponible = search.get("available") === "true";
 
-  const setPagina = (pagina) => {
-    search.set("page", pagina);
-    setSearch(search);
-  };
+  const setPagina = useCallback(
+    (pagina) => {
+      search.set("page", pagina);
+      setSearch(search);
+    },
+    [search, setSearch]
+  );
 
   useEffect(() => {
     if (!search.has("page")) setPagina(1);

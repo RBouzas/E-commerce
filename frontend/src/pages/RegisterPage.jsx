@@ -1,31 +1,62 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
 import Stack from "react-bootstrap/Stack";
+import Toast from "react-bootstrap/Toast";
+import ToastContainer from "react-bootstrap/ToastContainer";
 import { useNavigate } from "react-router-dom";
 import useRegistrarUsuario from "../client/useRegistrarUsuario";
 import Page from "../components/Page";
 import TituloPagina from "../components/TituloPagina";
-import Button from "react-bootstrap/Button";
+
+const RegistroErrorToast = ({ show, onHide }) => {
+  return (
+    <Toast
+      onClose={() => onHide()}
+      show={show}
+      delay={3000}
+      autohide
+      bg="danger"
+    >
+      <Toast.Header>
+        <strong className="me-auto">¡Error!</strong>
+      </Toast.Header>
+      <Toast.Body>
+        Ya existe una cuenta para ese usuario o correo electrónico.
+      </Toast.Body>
+    </Toast>
+  );
+};
 
 const RegisterPage = () => {
-  const { request } = useRegistrarUsuario();
+  const { request, error, done } = useRegistrarUsuario();
   const [nombre, setNombre] = useState("");
   const [contrasenha, setContrasenha] = useState("");
   const [mail, setMail] = useState("");
+  const [mostrarError, setMostrarError] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!done) return;
+
+    console.log(error);
+    if (error) setMostrarError(true);
+    else navigate("/login?registrado=true");
+  }, [done, error, navigate, setMostrarError]);
 
   return (
     <Page>
       <Stack gap={2} style={{ maxWidth: "50%" }} className="m-auto">
+        <ToastContainer className="p-3" position="top-end">
+          <RegistroErrorToast
+            show={mostrarError}
+            onHide={() => setMostrarError(false)}
+          />
+        </ToastContainer>
         <TituloPagina>Crea tu cuenta</TituloPagina>
         <form
-          onSubmit={(event) => {
+          onSubmit={async (event) => {
             event.preventDefault();
-
-            request({
-              body: JSON.stringify({ nombre, contrasenha, mail }),
-            });
-
-            navigate("/login?registrado=true");
+            request({ body: JSON.stringify({ nombre, contrasenha, mail }) });
           }}
         >
           <Stack gap={2}>

@@ -47,14 +47,13 @@ public class AutenticacionRestController {
     }
 
     @PostMapping("/register")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String registro(@RequestBody RegistroUsuarioDTO registroUsuarioDTO) throws Exception {
+    public ResponseEntity<String> registro(@RequestBody RegistroUsuarioDTO registroUsuarioDTO) throws Exception {
         String contrasenha = passwordEncoder.encode(registroUsuarioDTO.getContrasenha());
-        String mensaje = serUsu.registrarUsuario(
+        serUsu.registrarUsuario(
                 registroUsuarioDTO.getNombre(),
                 registroUsuarioDTO.getMail(),
                 contrasenha);
-        return mensaje;
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/verificar")

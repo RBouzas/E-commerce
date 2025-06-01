@@ -32,13 +32,13 @@ public class UsuarioService {
         return repoUsu.findById(id).orElse(null);
     }
 
-    public String registrarUsuario(String nombre, String email, String contrasenha) throws MessagingException {
+    public void registrarUsuario(String nombre, String email, String contrasenha) throws MessagingException {
         if (repoUsu.findByMail(email).isPresent()) {
-            return "Error: El email ya está registrado.";
+            throw new IllegalArgumentException("Error: El email ya está registrado.");
         }
 
         if (repoUsu.findUsuarioByNombre(nombre) != null) {
-            return "Error: El nombre de usuario ya está registrado.";
+            throw new IllegalArgumentException("Error: El nombre de usuario ya está registrado.");
         }
 
         Usuario usuario = new Usuario(nombre, contrasenha, email, Rol.USER);
@@ -51,8 +51,6 @@ public class UsuarioService {
         repoToken.save(verificationToken);
 
         serEmail.sendVerificationEmail(email, token);
-
-        return "Usuario registrado. Se ha enviado un correo de verificación.";
     }
 
     public String verificarUsuario(String token) {
