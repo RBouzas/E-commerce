@@ -17,7 +17,11 @@ const ControlBorrarCarrito = ({ idCarrito, refrescar }) => {
 
   if (!done)
     return (
-      <Button disabled={loading} onClick={() => request().finally(refrescar)}>
+      <Button
+        variant="danger"
+        disabled={loading}
+        onClick={() => request().finally(refrescar)}
+      >
         <RemoveShoppingCartIcon />
         Eliminar
       </Button>
