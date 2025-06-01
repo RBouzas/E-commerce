@@ -32,12 +32,12 @@ const ElementoCarrito = ({ elemento, refrescar }) => {
   const { idCarrito, producto } = elemento;
   const { nombre, precio, imagen } = producto;
   return (
-    <Row>
+    <Row className="d-flex align-items-center">
       <Col>
-        <img src={imagen} alt="Imagen del producto" />
+        <img width="75%" src={imagen} alt="Imagen del producto" />
       </Col>
       <Col>{nombre}</Col>
-      <Col>{precio} &#8364;</Col>
+      <Col>{precio}&nbsp;&#8364;</Col>
       <Col>
         <ControlBorrarCarrito idCarrito={idCarrito} refrescar={refrescar} />
       </Col>

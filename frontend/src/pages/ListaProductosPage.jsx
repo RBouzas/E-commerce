@@ -130,7 +130,7 @@ const ListaProductos = () => {
     disponible
   );
 
-  const [mostrarFiltros, setMostrarFiltros] = useState(true);
+  const [mostrarFiltros, setMostrarFiltros] = useState(false);
 
   const limpiarFiltros = useCallback(() => {
     setMinimo(null);
