@@ -34,7 +34,7 @@ public class ProductoRestController {
             @RequestParam(required = false, defaultValue = "6") Integer limit,
             @RequestParam(required = false) Double minimum,
             @RequestParam(required = false) Double maximum,
-            @RequestParam(required = false) boolean disponible) {
+            @RequestParam(required = false, defaultValue = "false") boolean disponible) {
         long totalProductos = serProd.contarProductos(search, minimum, maximum, disponible);
         long totalPaginas = Math.ceilDiv(totalProductos, limit);
 

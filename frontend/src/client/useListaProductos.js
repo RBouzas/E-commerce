@@ -18,7 +18,7 @@ const useListaProductos = (
     if (limit) params.set("limit", limit);
     if (minimum) params.set("minimum", minimum);
     if (maximum) params.set("maximum", maximum);
-    params.set("disponible", available);
+    if (available) params.set("disponible", available);
 
     return params;
   }, [search, offset, limit, minimum, maximum, available]);
