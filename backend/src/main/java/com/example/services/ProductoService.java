@@ -15,16 +15,17 @@ public class ProductoService {
     @Autowired
     private ProductoRepository repoProd;
 
-    public List<Producto> listarProductos(String search, Integer offset, Integer limit) {
+    public List<Producto> listarProductos(String search, Integer offset, Integer limit, Double minimum, Double maximum,
+            boolean disponible) {
         offset = offset == null ? 0 : offset;
         limit = limit == null ? 5 : limit;
         limit = limit < 1 ? 1 : limit;
         limit = limit > 20 ? 20 : limit;
-        return repoProd.search(search, offset, limit);
+        return repoProd.search(search, offset, limit, minimum, maximum, disponible);
     }
 
-    public long contarProductos(String search) {
-        return repoProd.count(search);
+    public long contarProductos(String search, Double minimum, Double maximum, boolean disponible) {
+        return repoProd.count(search, minimum, maximum, disponible);
     }
 
     public Optional<Producto> mostrarDetalle(Integer id) {

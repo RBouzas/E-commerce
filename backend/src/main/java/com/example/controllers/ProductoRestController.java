@@ -31,11 +31,14 @@ public class ProductoRestController {
     @GetMapping
     public ListaProductosDTO listar(@RequestParam(required = false) String search,
             @RequestParam(required = false, defaultValue = "0") Integer offset,
-            @RequestParam(required = false, defaultValue = "6") Integer limit) {
-        long totalProductos = serProd.contarProductos(search);
+            @RequestParam(required = false, defaultValue = "6") Integer limit,
+            @RequestParam(required = false) Double minimum,
+            @RequestParam(required = false) Double maximum,
+            @RequestParam(required = false) boolean disponible) {
+        long totalProductos = serProd.contarProductos(search, minimum, maximum, disponible);
         long totalPaginas = Math.ceilDiv(totalProductos, limit);
 
-        List<Producto> productos = serProd.listarProductos(search, offset, limit);
+        List<Producto> productos = serProd.listarProductos(search, offset, limit, minimum, maximum, disponible);
         List<ProductoDTO> productosDTO = productos.stream().map(producto -> new ProductoDTO(producto)).toList();
 
         return new ListaProductosDTO(productosDTO,
