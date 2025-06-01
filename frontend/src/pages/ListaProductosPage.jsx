@@ -1,9 +1,15 @@
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import FilterAltOff from "@mui/icons-material/FilterAltOff";
+import { useCallback, useState } from "react";
+import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 import Placeholder from "react-bootstrap/Placeholder";
 import Row from "react-bootstrap/Row";
 import Stack from "react-bootstrap/Stack";
-import Container from "react-bootstrap/esm/Container";
 import { useSearchParams } from "react-router-dom";
 import useListaProductos from "../client/useListaProductos";
 import ControlBusqueda from "../components/ControlBusqueda";
@@ -36,12 +42,55 @@ const ListaItemPlaceholder = () => (
   </Card>
 );
 
+const Filtros = ({
+  minimo,
+  setMinimo,
+  maximo,
+  setMaximo,
+  disponible,
+  setDisponible,
+}) => (
+  <Stack gap={2} className="align-middle" direction="horizontal">
+    <Form.Label className="m-0" htmlFor="filtro-precio">
+      Precio
+    </Form.Label>
+    <InputGroup className="m-0" id="filtro-precio">
+      <Form.Control
+        type="number"
+        min="0"
+        placeholder="Mín"
+        value={minimo ?? ""}
+        onChange={(event) => setMinimo(event.target.value)}
+      />
+      <InputGroup.Text>-</InputGroup.Text>
+      <Form.Control
+        type="number"
+        min="0"
+        placeholder="Máx"
+        value={maximo ?? ""}
+        onChange={(event) => setMaximo(event.target.value)}
+      />
+      <InputGroup.Text>€</InputGroup.Text>
+    </InputGroup>
+    <Form.Check
+      id="filtro-disponibles"
+      type="switch"
+      label="Solo&nbsp;en&nbsp;stock"
+      checked={disponible}
+      onChange={(event) => setDisponible(event.target.checked)}
+    />
+  </Stack>
+);
+
 const ELEMENTOS_POR_PAGINA = 6;
 
 const ListaProductos = () => {
   const [search, setSearch] = useSearchParams();
   const pagina = Math.max(1, parseInt(search.get("page") ?? "1"));
   const textoBusqueda = search.get("search") ?? "";
+  const minimo = search.get("minimum");
+  const maximo = search.get("maximum");
+  const disponible = search.get("available") === "true";
 
   const setPagina = (pagina) => {
     search.set("page", pagina);
@@ -54,14 +103,71 @@ const ListaProductos = () => {
     setSearch(search);
   };
 
+  const setMinimo = (minimo) => {
+    if (!minimo || minimo === "") search.delete("minimum");
+    else search.set("minimum", minimo);
+    setSearch(search);
+  };
+
+  const setMaximo = (maximo) => {
+    if (!maximo || maximo === "") search.delete("maximum");
+    else search.set("maximum", maximo);
+    setSearch(search);
+  };
+
+  const setDisponible = (disponible) => {
+    if (!disponible || disponible === "") search.delete("available");
+    else search.set("available", disponible);
+    setSearch(search);
+  };
+
   const { data, loading: loadingListaProductos } = useListaProductos(
     ELEMENTOS_POR_PAGINA * (pagina - 1),
     ELEMENTOS_POR_PAGINA,
-    textoBusqueda
+    textoBusqueda,
+    minimo,
+    maximo,
+    disponible
   );
+
+  const [mostrarFiltros, setMostrarFiltros] = useState(true);
+
+  const limpiarFiltros = useCallback(() => {
+    setMinimo(null);
+    setMaximo(null);
+    setDisponible(null);
+  });
 
   return (
     <>
+      <Stack
+        gap={4}
+        direction="horizontal"
+        className="align-items-center justify-content-end"
+      >
+        {mostrarFiltros && (
+          <Filtros
+            minimo={minimo}
+            setMinimo={setMinimo}
+            maximo={maximo}
+            setMaximo={setMaximo}
+            disponible={disponible}
+            setDisponible={setDisponible}
+          />
+        )}
+        <Button
+          variant={mostrarFiltros ? "danger" : "primary"}
+          onClick={() =>
+            setMostrarFiltros((anterior) => {
+              if (anterior) limpiarFiltros();
+              return !anterior;
+            })
+          }
+        >
+          {mostrarFiltros ? <FilterAltOff /> : <FilterAltIcon />}
+          Filtros
+        </Button>
+      </Stack>
       <ControlBusqueda
         busqueda={textoBusqueda}
         onCambioTextoBusqueda={(texto) => {

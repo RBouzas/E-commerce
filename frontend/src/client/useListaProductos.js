@@ -1,7 +1,14 @@
 import { useMemo } from "react";
 import useFetch from "./useFetch";
 
-const useListaProductos = (offset, limit, search) => {
+const useListaProductos = (
+  offset,
+  limit,
+  search,
+  minimum,
+  maximum,
+  available
+) => {
   const params = useMemo(() => {
     const params = new URLSearchParams();
 
@@ -9,9 +16,12 @@ const useListaProductos = (offset, limit, search) => {
     if (searchEnabled) params.set("search", search);
     params.set("offset", offset);
     if (limit) params.set("limit", limit);
+    if (minimum) params.set("minimum", minimum);
+    if (maximum) params.set("maximum", maximum);
+    params.set("disponible", available);
 
     return params;
-  }, [search, offset, limit]);
+  }, [search, offset, limit, minimum, maximum, available]);
 
   return useFetch({ url: `/api/productos?${params}` });
 };
