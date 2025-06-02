@@ -6,14 +6,20 @@
 
 ## 📸 Capturas
 
-> *(Pendiente de subir capturas finales)*
-
-<!-- Ejemplo de cómo se vería cuando las subas
-![Home](./screenshots/home.png)
-![Carrito](./screenshots/cart.png)
--->
+![Home](https://github.com/user-attachments/assets/1c954b02-a37b-4e30-9d61-86c36a6e967a)
+![Lista de productos](https://github.com/user-attachments/assets/99a5bd6b-9048-47b4-a05c-eb8e3bd7bb75)
+![Carrito](https://github.com/user-attachments/assets/2934c84c-458c-42b4-b9e2-d0d8f7c2ef62)
+![Deseados](https://github.com/user-attachments/assets/dd7b07f1-d504-4ec6-a2c6-bdf0413b66de)
+![Favoritos](https://github.com/user-attachments/assets/8dd351e1-8d52-494d-b16d-9e8938f8c6ca)
+![Panel de control](https://github.com/user-attachments/assets/1f4e3f8a-75b1-4f79-9431-facf4ed9c6d3)
+![Inventario](https://github.com/user-attachments/assets/565c00bf-b8c6-48e9-8c5f-212c775e6480)
+![Login](https://github.com/user-attachments/assets/18121290-b0a9-42b0-97da-ae41218e090d)
+![Registro](https://github.com/user-attachments/assets/4c1179a7-c394-4a42-b7ff-1caff5ecad39)
+![Logout](https://github.com/user-attachments/assets/6f6ca74d-73ef-4342-b73e-848ba70c8527)
 
 ---
+
+
 
 ## 🚀 Funcionalidades principales
 
